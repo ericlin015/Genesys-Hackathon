@@ -112,8 +112,12 @@ var socket = io(server).on('connection', function (socket) {
               text: req.message
           })
       }, function (err, _res, body) {
-        // to-do: emit an object along with the string
-        socket.emit('test'); // broadcasting to all clients
+        request.get({
+            headers: headers,
+            url: url + '/' + req.chatId + '/messages'
+        }, function (err, _res, body) {
+          socket.emit('update messages', JSON.stringify(body).messages); // broadcasting to all clients
+        });
       });
     });
 });
