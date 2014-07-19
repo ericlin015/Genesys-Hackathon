@@ -29,6 +29,7 @@ if (data.users) {
     data.users.forEach(function (user) {
         users.push(user);
     });
+    id = data.users.length;
 }
 
 if (data.events) {
