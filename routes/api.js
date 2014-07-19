@@ -1,6 +1,7 @@
 // requires
 
-var request = require('request');
+var request = require('request'),
+    data = require('./data');
 
 // test API
 
@@ -23,6 +24,42 @@ var R = 6371,
 var id = 0,
     users = [],
     events = [];
+
+if (data.users) {
+    data.users.forEach(function (user) {
+        users.push(user);
+    });
+}
+
+if (data.events) {
+    data.events.forEach(function (evt) {
+        request.post({
+            headers: headers,
+            url: url,
+            body: JSON.stringify({
+                operationName: 'RequestChat',
+                nickname: 'testName',
+                subject: 'testSubject'
+            })
+        }, function (err, _res, body) {
+            var newEvt = {
+                hostId: evt.userId,
+                chatId: JSON.parse(body).id, // needs testing
+                lat: evt.lat,
+                lon: evt.lon,
+                sport: evt.sport, // for searching
+                startDate: new Date(),
+                endDate: new Date(),
+                capacity: evt.capacity,
+                price: evt.price
+            };
+
+            events.push(newEvt);
+            getUser(newEvt.hostId).subscriptions.push(newEvt); // creater automatically watches event
+            console.log("created event: " + newEvt.chatId);
+        });
+    });
+}
 
 exports.createUser = function (req, res) {
     users.push({
