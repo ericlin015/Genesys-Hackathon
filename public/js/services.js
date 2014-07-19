@@ -84,14 +84,15 @@ angular.module('myApp.services', ['ngCookies'])
                 return userProfile;
             };
 
-            this.setUserId = function(newUserId) {
-                userId = newUserId;
+            this.getUserId = function() {
+                return userId;
             };
 
             this.userSignIn = function(profileJSON) {
                 $http.post('/api/createUser', profileJSON).success(function(data) {
                     console.log(data);
                     $cookieStore.put('userID', data.userId);
+                    userId = data.userId;
                     $location.path('/menu');
                 });
             }

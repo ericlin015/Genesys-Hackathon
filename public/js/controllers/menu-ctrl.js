@@ -12,7 +12,11 @@ angular.module('myApp.controllers').controller(
         $scope.selectedSport = {};
         $scope.td = new Date();
         $scope.eventSettings = {
-            "date": $scope.td
+            "date": $scope.td,
+            "nickname": userProfileService.getUserProfile().name,
+            "userId": userProfileService.getUserId(),
+            "capacity": null,
+            "price": null
         };
 
         $scope.selectMenu = function(bool) {
@@ -33,5 +37,26 @@ angular.module('myApp.controllers').controller(
                 }
             });
         };
-    }
-);
+
+        $scope.createNewEvent = function() {
+            gMapServices.getPlace($scope, function(results, status) {
+                $scope.gps = results[0].geometry.location;
+                $scope.eventSettings.lat = $scope.gps.k;
+                $scope.eventSettings.lon = $scope.gps.B;
+                if ($scope.selectedSport.id === 10) {
+                    $scope.eventSettings.sport = $scope.customSportName;
+                } else {
+                    $scope.eventSettings.sport = $scope.selectedSport.name;
+                }
+                if ($scope.capacity) {
+                    $scope.eventSettings.capacity = $scope.capacity;
+                }
+                if ($scope.price) {
+                    $scope.eventSettings.price = $scope.price;
+                }
+
+
+
+            });
+        };
+    });
