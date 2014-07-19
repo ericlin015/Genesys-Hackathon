@@ -30,6 +30,10 @@ config(function($routeProvider, $locationProvider) {
         templateUrl: 'partials/events-page',
         controller: 'EventCtrl'
     }).
+    whem('/chat', {
+        templateUrl: 'partials/events-page',
+        controller: 'ChatCtrl'
+    }).
     otherwise({
         redirectTo: '/home'
     });

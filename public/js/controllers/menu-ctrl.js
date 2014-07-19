@@ -4,7 +4,7 @@ angular.module('myApp.controllers').controller(
 
     'MenuCtrl',
 
-    function($scope, $location, cookieService, gMapServices, userProfileService, sportsDataService) {
+    function($http, $scope, $location, cookieService, gMapServices, userProfileService, sportsDataService) {
 
         $scope.isCreate = true;
         $scope.opened = false;
@@ -12,7 +12,6 @@ angular.module('myApp.controllers').controller(
         $scope.selectedSport = {};
         $scope.td = new Date();
         $scope.eventSettings = {
-            "date": $scope.td,
             "nickname": userProfileService.getUserProfile().name,
             "userId": userProfileService.getUserId(),
             "capacity": null,
@@ -39,6 +38,8 @@ angular.module('myApp.controllers').controller(
         };
 
         $scope.createNewEvent = function() {
+            $scope.geocoder = new google.maps.Geocoder();
+
             gMapServices.getPlace($scope, function(results, status) {
                 $scope.gps = results[0].geometry.location;
                 $scope.eventSettings.lat = $scope.gps.k;
@@ -54,10 +55,21 @@ angular.module('myApp.controllers').controller(
                 if ($scope.price) {
                     $scope.eventSettings.price = $scope.price;
                 }
+                $scope.eventSettings.startDate = $scope.date.setHours($scope.startTime.getHours(), $scope.startTime.getMinutes());
+                $scope.eventSettings.endDate = $scope.date.setHours($scope.endTime.getHours(), $scope.endTime.getMinutes());
 
+                $http.post('/api/createEvent', $scope.eventSettings).success(function(data, status, headers, config) {
+                    console.log("success");
+                    // this callback will be called asynchronously
+                    // when the response is available
+                }).
+                error(function(data, status, headers, config) {
+                    console.log("failure");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
 
-
-            });
+            }, $scope.eventSettings.address);
         };
 
         $scope.loadUserMeetup = function() {

@@ -28,14 +28,18 @@
         <div class="form-row tall-row" ng-if="selectedSport.id === 10">
             <input class="form-control other-sport" type="text" placeholder="Other Sport" ng-model="customSportName">
         </div>
+        <div class="form-row tall-row">
+            Address:
+            <input class="form-control" type="text" placeholder="Enter Address or Postal Code" ng-model="eventSettings.address" style="width: 250px; display: inline-block; margin-left: 60px">
+        </div>
         <div class="date-row tall-row">
             Select Date:
-            <input type="text" class="form-control" datepicker-popup="MMMM dd, yyyy" ng-model="eventSettings.date" min-date="td" is-open="opened" ng-required="true" style="width: 250px; margin-left: 35px; display:inline-block" ng-click="open($event)">
+            <input type="text" class="form-control" datepicker-popup="MMMM dd, yyyy" ng-model="date" min-date="td" is-open="opened" ng-required="true" style="width: 250px; margin-left: 35px; display:inline-block" ng-click="open($event)">
         </div>
         <div class="form-row tall-row">
             <span>Start Time</span><span style="float:right">End Time</span><br>
-            <timepicker ng-model="eventSettings.startTime" style="display: inline-block"></timepicker>
-            <timepicker ng-model="eventSettings.endTime" style="display: inline-block; float:right"></timepicker>
+            <timepicker ng-model="startTime" style="display: inline-block"></timepicker>
+            <timepicker ng-model="endTime" style="display: inline-block; float:right"></timepicker>
         </div>
         <hr style="width: 70%">
         <h4>Optional fields:</h4>
@@ -47,7 +51,7 @@
             Maximum:
             <input class="form-control home-input" type="text" placeholder="Maximum participants" ng-model="capacity" style="width: 250px; display: inline-block; margin-left: 45px">
         </div>
-        <a href="javascript:void(0)" class="btn btn-block btn-inverse" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
+        <a href="javascript:void(0)" class="btn btn-block btn-inverse" ng-click="createNewEvent()" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
       </form>
     </div>
     <div ng-show="!isCreate">
@@ -110,7 +114,7 @@
                <td>10</td>
                <td>Football</td>
                <td>2012- blah</td>
-               <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
+               <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn ">Join chatroom</a></td>
             </tr>
             </tbody>
           </table>
