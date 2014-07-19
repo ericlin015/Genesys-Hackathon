@@ -151,7 +151,7 @@ exports.complete = function (req, res) {
 exports.getTranscript = function(req, res) {
     request.get({
         headers: headers,
-        url: 'http://localhost:8888/api/v2/chats/' + chatId + '/messages?index=' + index
+        url: 'http://localhost:8888/api/v2/chats/' + req.body.chatId + '/messages?index=' + req.body.index
     }, function (err, _res, body) {
         console.log(body);
         res.json(body);
