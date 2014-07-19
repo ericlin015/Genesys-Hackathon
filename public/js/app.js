@@ -12,8 +12,8 @@ angular.module('myApp', [
 config(function($routeProvider, $locationProvider) {
     $routeProvider.
     when('/home', {
-        templateUrl: 'partials/home',
-        controller: 'Ctrl1'
+      templateUrl: 'partials/home',
+      controller: 'HomeCtrl'
     }).
     when('/mainPage', {
         templateUrl: 'partials/event-page.html',
