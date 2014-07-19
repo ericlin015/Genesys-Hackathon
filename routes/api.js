@@ -54,6 +54,8 @@ exports.createEvent = function (req, res) {
             lat: req.body.lat,
             lon: req.body.lon,
             sport: req.body.sport, // for searching
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
             capacity: req.body.capacity,
             price: req.body.price
         };
@@ -72,6 +74,13 @@ exports.watchEvent = function (req, res) {
 
     user.subscriptions.push(getEvent(evtId));
 
+    res.send(user.subscriptions);
+};
+
+exports.getSubscriptions = function (req, res) {
+    var userId = req.body.userId,
+        user = getUser(userId);
+        
     res.send(user.subscriptions);
 };
 
@@ -151,7 +160,7 @@ exports.complete = function (req, res) {
 exports.getTranscript = function(req, res) {
     request.get({
         headers: headers,
-        url: 'http://localhost:8888/api/v2/chats/' + req.body.chatId + '/messages?index=' + req.body.index
+        url: 'http://localhost:8888/api/v2/chats/' + req.body.chatId + '/messages'
     }, function (err, _res, body) {
         console.log(body);
         res.json(body);

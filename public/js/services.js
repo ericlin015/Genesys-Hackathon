@@ -68,7 +68,7 @@ angular.module('myApp.services', ['ngCookies'])
     return new SportsDataService();
 })
     .factory('userProfileService', function($http, $cookieStore, $location) {
-        var UserProfileService = function() {
+        var UserProfileService = function($cookieStore) {
             var userProfile = {
                 "name": "defaultName",
                 "postalCode": "defaultPostalCode",
@@ -95,7 +95,14 @@ angular.module('myApp.services', ['ngCookies'])
                     userId = data.userId;
                     $location.path('/menu');
                 });
-            }
+            };
+
+            this.loadUserMeetup = function() {
+                var userId = $cookieStore.get('userId');
+                $http.post('/api/watchEvent').success(function(data) {
+                    
+                });
+            };
         };
 
         return new UserProfileService();

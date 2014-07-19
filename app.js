@@ -81,8 +81,8 @@ app.post('/api/sendStopTypingNotification', api.sendStopTypingNotification);
 // app.post('/api/sendMessage', api.sendMessage);
 app.post('/api/complete', api.complete);
 app.post('/api/getNearestEvents', api.getNearestEvents);
+app.post('/api/getSubscriptions', api.getSubscriptions);
 app.post('/api/getTranscript', api.getTranscript);
-
 
 /**
  * Start Server
