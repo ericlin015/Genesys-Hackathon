@@ -136,4 +136,10 @@ angular.module('myApp.services', ['ngCookies'])
     };
 
     return new GMapServices();
-});
+})
+    .factory('eventService', function() {
+        var EventService = function() {
+
+        };
+        return new EventService();
+    });
