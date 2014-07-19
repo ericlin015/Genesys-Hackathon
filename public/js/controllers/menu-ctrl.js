@@ -10,6 +10,7 @@ angular.module('myApp.controllers').controller(
         $scope.opened = false;
         $scope.sportList = sportsDataService.getSportsList();
         $scope.subscribedList = [];
+        $scope.topTenList = [];
         $scope.selectedSport = {};
         $scope.td = new Date();
         $scope.eventSettings = {
@@ -84,18 +85,21 @@ angular.module('myApp.controllers').controller(
         $scope.loadUserMeetup = function() {
             userProfileService.loadUserMeetup(function(data) {
                 $scope.subscribedList = data;
-                console.log($scope.subscribedList);
-                console.log($scope);
             });
         };
 
         $scope.updateNearest = function() {
             userProfileService.updateNearest(parseInt($scope.closestNumber), function(data) {
                 console.log(data);
+                data.forEach(function(t) {
+                    t.startDate = new Date(t.startDate);
+                });
+                $scope.topTenList = data;
             });
         };
 
         $scope.checkIfUserExist();
+        $scope.updateNearest();
 
     }
 );
