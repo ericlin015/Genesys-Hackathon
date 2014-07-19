@@ -100,27 +100,27 @@ var server = http.createServer(app),
 // they can communicate through the emitted objects
 
 var socket = io(server).on('connection', function (socket) {
-    console.log(++userCount + " user(s) connected");
-    socket.on('disconnect', function () {
-      console.log("a user has disconnected");
-      userCount--;
-    }).on('new message', function (req) { // notification from client
-      request.post({
-          headers: headers,
-          url: url + '/' + req.chatId,
-          body: JSON.stringify({
-              operationName: 'SendMessage',
-              text: req.userName + ':' + req.message
-          })
+  console.log(++userCount + " user(s) connected");
+  socket.on('disconnect', function () {
+    console.log("a user has disconnected");
+    userCount--;
+  }).on('new message', function (req) { // notification from client
+    request.post({
+      headers: headers,
+      url: url + '/' + req.chatId,
+      body: JSON.stringify({
+        operationName: 'SendMessage',
+        text: req.userName + ':' + req.message
+      })
+    }, function (err, _res, body) {
+      request.get({
+        headers: headers,
+        url: url + '/' + req.chatId + '/messages'
       }, function (err, _res, body) {
-        request.get({
-          headers: headers,
-          url: url + '/' + req.chatId + '/messages'
-        }, function (err, _res, body) {
-          socket.emit('update messages', JSON.stringify(body).messages); // broadcasting to all clients
-        });
+        socket.emit('update messages', JSON.stringify(body).messages); // broadcasting to all clients
       });
     });
+  });
 });
 
 server.listen(app.get('port'), function () {
