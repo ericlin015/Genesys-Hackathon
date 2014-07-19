@@ -1,6 +1,6 @@
 'use strict'
 
 angular.module('myApp.controllers')
-    .controller('fitlerCtrl', function($scope, $http, sportsDataService) {
+    .controller('FitlerCtrl', function($scope, $http, sportsDataService) {
 
     });

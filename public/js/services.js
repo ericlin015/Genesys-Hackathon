@@ -8,6 +8,7 @@
 angular.module('myApp.services', [])
     .factory('sportsDataService', function() {
         var SportsDataService = function() {
+
             var sportsList = [{
                 "id": 0,
                 "name": "Soccer"
@@ -42,9 +43,9 @@ angular.module('myApp.services', [])
 
             this.getSportsList = function() {
                 return sportsList;
-            }
+            };
 
         };
 
-        return SportsDataService;
+        return new SportsDataService();
     });

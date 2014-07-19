@@ -12,11 +12,11 @@ angular.module('myApp', [
 config(function($routeProvider, $locationProvider) {
     $routeProvider.
     when('/home', {
-      templateUrl: 'partials/home',
-      controller: 'HomeCtrl'
+        templateUrl: 'partials/home',
+        controller: 'HomeCtrl'
     }).
     when('/mainPage', {
-        templateUrl: 'partials/event-page.html',
+        templateUrl: 'partials/event-page',
         controller: 'EventCtrl'
     }).
     otherwise({
