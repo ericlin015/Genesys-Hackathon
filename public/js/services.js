@@ -5,7 +5,7 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('myApp.services', ['ngCookies'])
+angular.module('myApp.services', ['ngCookies', 'btford.socket-io'])
     .factory('cookieService', function($cookieStore) {
         var CookieService = function() {
             this.checkUser = function(callback) {
@@ -165,4 +165,14 @@ angular.module('myApp.services', ['ngCookies'])
             }
         };
         return new EventService();
-    });
+    })
+
+.factory('mySocket', function (socketFactory) {
+  var myIoSocket = io.connect('/some/path');
+
+  mySocket = socketFactory({
+    ioSocket: myIoSocket
+  });
+
+  return mySocket;
+});
