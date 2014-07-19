@@ -115,7 +115,7 @@ angular.module('myApp.services', ['ngCookies'])
             };
 
             this.loadUserMeetup = function(callback) {
-                this.userId = $cookieStore.get('userID');
+                var userId = $cookieStore.get('userID')
                 $http.post('/api/getSubscriptions', {
                     userId: userId,
                 }).success(function(data) {
