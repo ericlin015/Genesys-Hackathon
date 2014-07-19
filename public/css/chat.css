@@ -5,3 +5,9 @@
 	background-color: #16A085;
 	transition: width linear 1s;
 }
+
+.message-container {
+	text-align: left;
+	margin-left: 5%;
+	font-size: 22px;
+}
