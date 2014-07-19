@@ -74,11 +74,10 @@ exports.createChatRoom = function(req, res) {
 exports.sendMessage = function (req, res) {
     request.post({
         headers: headers,
-        url: url,
+        url: url + '/' + req.body.chatId,
         body: JSON.stringify({
-            operationName: 'RequestChat',
-            nickname: req.body.nickname,
-            subject: req.body.subject
+            operationName: 'SendMessage',
+            text: req.body.text
         })
     }, function (err, _res, body) {
         res.json(body);
@@ -95,7 +94,7 @@ exports.sendStartTypingNotification = function(req, res) {
     }, function(err, _res, body) {
         res.json(body);
     });
-}
+};
 
 exports.sendStopTypingNotification = function(req, res) {
      var _req = request.post({
@@ -107,4 +106,4 @@ exports.sendStopTypingNotification = function(req, res) {
     }, function(err, _res, body) {
         res.json(body);
     });
-}
+};
