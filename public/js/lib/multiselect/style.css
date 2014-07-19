@@ -1,8 +1,9 @@
 /* Put your css in here */
 
 multiselect {
-    display:block;
+    display:inline-block;
     width: 220px;
+    margin-left: 20px;
 }
 multiselect .btn {
     width: 100%;

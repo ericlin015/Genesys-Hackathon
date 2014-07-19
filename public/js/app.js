@@ -18,8 +18,8 @@ config(function($routeProvider, $locationProvider) {
         templateUrl: 'partials/home',
         controller: 'HomeCtrl'
     }).
-    when('/mainPage', {
-        templateUrl: 'partials/event-page',
+    when('/events', {
+        templateUrl: 'partials/events-page',
         controller: 'EventCtrl'
     }).
     otherwise({
