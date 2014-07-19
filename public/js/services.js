@@ -75,7 +75,7 @@ angular.module('myApp.services', ['ngCookies'])
                 "postalCode": "defaultPostalCode",
             }
 
-            this.userId = null;
+            var userId = null;
 
             this.setUserProfile = function(newUserProfile) {
                 userProfile = newUserProfile;
@@ -86,23 +86,23 @@ angular.module('myApp.services', ['ngCookies'])
             };
 
             this.getUserId = function() {
-                if (!this.userId) {
-                    this.userId = $cookieStore.get('userID');
+                if (userId) {
+                    userId = $cookieStore.get('userID');
                 }
-                return this.userId;
+                return userId;
             };
 
             this.userSignIn = function(profileJSON) {
                 $http.post('/api/createUser', profileJSON).success(function(data) {
                     $cookieStore.put('userID', data.userId);
-                    this.userId = data.userId;
+                    userId = data.userId;
                     $location.path('/menu');
-                }.bind(this));
+                });
             };
 
             this.updateNearest = function(maxNum, callback) {
                 $http.post('/api/getUser', {
-                    userId: this.userId
+                    userId: userId
                 }).success(function(data) {
                     $http.post('/api/getNearestEvents', {
                         lat: data.lat,
@@ -117,7 +117,7 @@ angular.module('myApp.services', ['ngCookies'])
             this.loadUserMeetup = function(callback) {
                 this.userId = $cookieStore.get('userID');
                 $http.post('/api/getSubscriptions', {
-                    userId: this.userId,
+                    userId: userId,
                 }).success(function(data) {
                     callback(data);
                 });
