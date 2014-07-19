@@ -119,3 +119,15 @@ exports.complete = function (req, res) {
         res.json(body);
     });
 };
+
+/*exports.getTranscript = function(req, res) {
+    var _req = request.get({
+        headers: headers,
+        url: url + '/' + req.body.chatId + '/messages',
+        body: JSON.stringify({
+            index: req.body.index || 0
+        })
+    }, function(err, _res, body) {
+        res.json(body);
+    });
+}*/
