@@ -110,7 +110,7 @@ var socket = io(server).on('connection', function (socket) {
           url: url + '/' + req.chatId,
           body: JSON.stringify({
               operationName: 'SendMessage',
-              text: req.message
+              text: req.userName + ':' + req.message
           })
       }, function (err, _res, body) {
         request.get({
