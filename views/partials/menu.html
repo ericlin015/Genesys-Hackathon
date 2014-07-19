@@ -39,11 +39,28 @@
             Price:
             <input class="form-control home-input" type="text" placeholder="Potential price" ng-model="eventPrice" style="width: 250px; display: inline-block; margin-left: 85px">
         </div>
-        <a href="javascript:void(0)" class="btn btn-block btn-primary" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
+        <a href="javascript:void(0)" class="btn btn-block btn-inverse" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
       </form>
     </div>
     <div ng-show="!isCreate">
-      I am no
+      <div style="display: table; width: 80%; margin: 0 auto;">
+      <table id="filter-table" class="table">
+        <tbody>
+        <tr>
+           <td>Subject:</td>
+           <td>Payday fun fun group</td>
+           <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
+           <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
+        </tr>
+        <tr>
+          <td>Subject:</td>
+           <td>Super long styling group and stuff</td>
+           <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
+           <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
+        </tr>
+        </tbody>
+      </table>
+      </div>
     </div>
   </div>
 </div>

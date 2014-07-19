@@ -35,3 +35,20 @@
 multiselect .btn:hover, .btn:focus {
 	color: #333;
 }
+
+.filter-text-align {
+	display: inline-block;
+	margin-left: 30px;
+	font-size: 22px;
+	padding: 10px 0;
+}
+
+.filter-control-btn {
+	margin-left: 20px !important;
+	width: 180px !important;
+	display: inline-block !important;
+}
+
+.filter-table .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+	vertical-align: middle !important;
+}
