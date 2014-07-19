@@ -33,5 +33,13 @@ angular.module('myApp.controllers').controller(
                 }
             });
         };
+
+        $scope.loadUserMeetup = function() {
+            userProfileService.loadUserMeetup(function(data) {
+
+            });
+        };
+
+        $scope.loadUserMeetup();
     }
 );

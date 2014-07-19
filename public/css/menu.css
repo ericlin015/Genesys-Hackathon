@@ -52,3 +52,11 @@ multiselect .btn:hover, .btn:focus {
 .filter-table .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 	vertical-align: middle !important;
 }
+
+.table {
+	margin-bottom: 0;
+}
+
+.table thead th {
+	text-align: center;
+}
