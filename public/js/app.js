@@ -7,7 +7,8 @@ angular.module('myApp', [
     'myApp.filters',
     'myApp.services',
     'myApp.directives',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.multiselect'
 ]).
 config(function($routeProvider, $locationProvider) {
     $routeProvider.

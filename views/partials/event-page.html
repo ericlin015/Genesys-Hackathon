@@ -1,8 +1,8 @@
 <div>
-	<span>Hello {{userProfile.name}}! Your current location is set to {{userProfile.postalCode}}.</span>
+	<h1>Hello {{userProfile.name}}! Your current location is set to {{userProfile.postalCode}}.</h1>
 </div>
 <div ng-controller="CreateEventCtrl">
-	<h2>Create new meetup</h2>
+	<h3>Create new meetup</h>
 	<form class="pure-form pure-form-aligned">
 		<fieldset>
 			<div class="pure-control-group">
@@ -10,13 +10,16 @@
 				<input id="postalCode" type="text" ng-model="eventSettings.postalCode">
 			</div>
 			<div class="pure-control-group">
-				<label for="password">Sport</label>
-				<input id="password" type="password" placeholder="Password">
+				<label for="sport">Sport</label>
+				<multiselect class="input-lg"
+				ng-model="selectedSport"
+				options="sport.name for sport in sportList"
+				change="selected()" ></multiselect>
 			</div>
 			<div class="pure-control-group">
 				<label for="email">Number of results</label>
-				<input id="email" type="email" placeholder="Email Address">
+				<div ui-slider min="0" max="200" ng-model="eventSettings.sliderExample1"></div>
 			</div>
-		</fieldset>
+		<fieldset>
 	</form>
 </div>
