@@ -4,9 +4,22 @@ angular.module('myApp.controllers').controller('ChatCtrl',
 
     function($http, $scope, $location, eventService, mySocket) {
 
-        // mySocket.on('update messages', function (res) {console.log(res);});
+        $scope.messages = [];
 
-        // mySocket.emit('new message', { userName: 'Tyron', message: 'hey', chatId: "e47ef2ee-03c8-423e-98a4-b36cd665962b" });
+        $scope.sendMessage = function() {
+            if ($scope.myMsg) {
+                $scope.messages.push('[You] ' + $scope.myMsg);
+                $scope.myMsg = '';
+            }
+        };
+
+        mySocket.on('5c977644-b9fa-4344-ba4f-93967fe2fdd3', function (res) {
+            var temp = res.split(':');
+            $scope.messages.push('[' + temp[0] + '] ' + temp[1]);
+        });
+
+
+        //mySocket.emit('new message', { userName: 'Tyron', message: 'hey', chatId: "5c977644-b9fa-4344-ba4f-93967fe2fdd3" });
 
         $scope.eventData = eventService.getCurrentEvent();
 
