@@ -90,17 +90,32 @@ angular.module('myApp.services', ['ngCookies'])
 
             this.userSignIn = function(profileJSON) {
                 $http.post('/api/createUser', profileJSON).success(function(data) {
-                    console.log(data);
                     $cookieStore.put('userID', data.userId);
                     userId = data.userId;
                     $location.path('/menu');
                 });
             };
 
-            this.loadUserMeetup = function() {
-                var userId = $cookieStore.get('userId');
-                $http.post('/api/watchEvent').success(function(data) {
+            this.updateNearest = function(maxNum, callback) {
+                $http.post('/api/getUser', {
+                    userId: userId
+                }).success(function(data) {
+                    $http.post('/api/getNearestEvents', {
+                        lat: data.lat,
+                        lon: data.lon,
+                        max: maxNum || 10
+                    }).success(function(data) {
+                        callback(data);
+                    });
+                });
+            };
 
+            this.loadUserMeetup = function(callback) {
+                var userId = $cookieStore.get('userID')
+                $http.post('/api/getSubscriptions', {
+                    userId: userId,
+                }).success(function(data) {
+                    callback(data);
                 });
             };
         };

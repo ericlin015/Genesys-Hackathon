@@ -9,6 +9,7 @@ angular.module('myApp.controllers').controller(
         $scope.isCreate = true;
         $scope.opened = false;
         $scope.sportList = sportsDataService.getSportsList();
+        $scope.subscribedList = [];
         $scope.selectedSport = {};
         $scope.td = new Date();
         $scope.eventSettings = {
@@ -31,8 +32,11 @@ angular.module('myApp.controllers').controller(
 
         $scope.checkIfUserExist = function() {
             cookieService.checkIfUserExist(function(data) {
+                console.log(data);
                 if (!data) {
                     $location.path('/home');
+                } else {
+                    $scope.loadUserMeetup();
                 }
             });
         };
@@ -74,10 +78,19 @@ angular.module('myApp.controllers').controller(
 
         $scope.loadUserMeetup = function() {
             userProfileService.loadUserMeetup(function(data) {
-
+                $scope.subscribedList = data;
+                console.log($scope.subscribedList);
+                console.log($scope);
             });
         };
 
-        $scope.loadUserMeetup();
+        $scope.updateNearest = function() {
+            userProfileService.updateNearest(parseInt($scope.closestNumber), function(data) {
+                console.log(data);
+            });
+        };
+
+        $scope.checkIfUserExist();
+
     }
 );

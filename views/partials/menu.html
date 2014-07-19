@@ -60,15 +60,21 @@
         <table id="filter-table" class="table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th># of Participants</th>
+            <th>Sports</th>
+            <th>Capacity</th>
             <th>Chat</th>
             <th>Leave group</th>
           </tr>
         </thead>
           <tbody>
-          <tr>
-             <td>Payday fun fun group</td>
+          <tr ng-repeat="list in subscribedList">
+            <td>{{list.sport}}</td>
+            <td>{{list.capacity}}</td>
+            <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn" ng-click="joinRoom(list.chatId)">Join chatroom</a></td>
+            <td><a href="javascript:void(0)" ctheListass="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
+          </tr>
+<!--           <tr>
+             <td ng-repeat="l in subscribedList">{{}}</td>
              <td>5</td>
              <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
              <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
@@ -78,7 +84,7 @@
              <td>Super long styling group and stuff</td>
              <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
              <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
-          </tr>
+          </tr> -->
           </tbody>
         </table>
       </div>
@@ -86,7 +92,7 @@
       <div style="margin-bottom: 30px">
         <h4>Search for meetups</h4>
         <div>
-          Show closest <input type="text" value="" placeholder="Number" class="form-control" style="width: 80px; display: inline-block; margin-left: 10px; text-align: center"> of Meetups
+          Show closest <input type="text" ng-model="closestNumber" placeholder="Number" class="form-control" style="width: 80px; display: inline-block; margin-left: 10px; text-align: center"> of Meetups
           <a href="javascript:void(0)" class="btn btn-block btn-inverse" style="width: 100px; display: inline-block; margin-left: 20px">Update</a>
         </div>
       </div>
