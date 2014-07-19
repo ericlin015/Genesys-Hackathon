@@ -107,8 +107,12 @@ angular.module('myApp.controllers').controller(
                         if ($scope.price) {
                             $scope.eventSettings.price = $scope.price;
                         }
-                        $scope.eventSettings.startDate = $scope.date.setHours($scope.startTime.getHours(), $scope.startTime.getMinutes());
-                        $scope.eventSettings.endDate = $scope.date.setHours($scope.endTime.getHours(), $scope.endTime.getMinutes());
+                        var myStartTime = new Date($scope.startTime);
+                        var myEndTime = new Date($scope.endTime);
+                        $scope.eventSettings.startDate = $scope.date.setHours(myStartTime.getHours(), myEndTime.getMinutes());
+                        $scope.eventSettings.endDate = $scope.date.setHours(myEndTime.getHours(), myEndTime.getMinutes());
+
+                        $scope.eventSettings.userId = $scope.userId;
 
                         $http.post('/api/createEvent', $scope.eventSettings).success(function(data, status, headers, config) {
                             console.log("success");

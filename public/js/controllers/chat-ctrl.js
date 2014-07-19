@@ -4,6 +4,8 @@ angular.module('myApp.controllers').controller('ChatCtrl',
 
     function($http, $scope, $location, eventService, mySocket) {
 
+        $scope.eventData = eventService.getCurrentEvent();
+
         $scope.messages = [];
 
         $scope.sendMessage = function() {
@@ -13,7 +15,7 @@ angular.module('myApp.controllers').controller('ChatCtrl',
             }
         };
 
-        mySocket.on('5c977644-b9fa-4344-ba4f-93967fe2fdd3', function (res) {
+        mySocket.on('5c977644-b9fa-4344-ba4f-93967fe2fdd3', function(res) {
             var temp = res.split(':');
             $scope.messages.push('[' + temp[0] + '] ' + temp[1]);
         });
