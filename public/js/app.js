@@ -10,7 +10,10 @@ angular.module('myApp', [
     'myApp.controllers',
     'myApp.directives',
     'ui.bootstrap',
-    'ui.multiselect'
+    'ui.multiselect',
+    'ui.bootstrap.position',
+    'ui.bootstrap.dateparser',
+    'ui.bootstrap.datepicker'
 ]).
 config(function($routeProvider, $locationProvider) {
     $routeProvider.

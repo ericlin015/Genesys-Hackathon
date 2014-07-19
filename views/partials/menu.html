@@ -12,32 +12,36 @@
 <div class="menu-content-container" style="text-align: center">
   <div class="menu-content-wrapper">
     <div ng-show="isCreate">
-      <h4>Mendatory fields:</h4>
+      <h4>Mandatory fields:</h4>
       <form class="form-group" style="margin-top: 0; display: inline-block">
-        <div style="text-align: left; margin-left: 50px">
-            Event Name:
-            <input class="form-control home-input" type="text" placeholder="Enter event Name" ng-model="eventName" style="width: 250px; display: inline-block; margin-left: 30px">
+        <div class="form-row">
+            Meetup Name:
+            <input class="form-control home-input" type="text" placeholder="Enter event Name" ng-model="eventSettings.eventName" style="width: 250px; display: inline-block; margin-left: 13px">
         </div>
-        <div style="text-align: left; margin-left: 50px">
+        <div class="form-row">
             Sports:
             <multiselect class="input-lg"
             ng-model="selectedSport"
             options="sport.name for sport in sportList"
             change="selected()" style="margin-left: 58px; width: 280px"></multiselect>
         </div>
-        <div style="text-align: left; margin-left: 50px">
-            Maximum:
-            <input class="form-control home-input" type="text" placeholder="Maximum participants" ng-model="maxPeople" style="width: 250px; display: inline-block; margin-left: 45px">
+        <div class="date-row">
+            Select Date:
+            <input type="text" class="form-control" datepicker-popup="MMMM dd, yyyy" ng-model="eventSettings.date" min-date="td" is-open="opened" ng-required="true" style="width: 250px; margin-left: 35px; display:inline-block" ng-click="open($event)">
         </div>
-        <div style="text-align: left; margin-left: 50px">
+        <div class="form-row">
             Duration:
-            <input class="form-control home-input" type="text" placeholder="Duration time" ng-model="duration" style="width: 250px; display: inline-block; margin-left: 53px">
+            <input class="form-control home-input" type="text" placeholder="Duration time" ng-model="eventSettings.duration" style="width: 250px; display: inline-block; margin-left: 53px">
         </div>
         <hr style="width: 70%">
         <h4>Optional fields:</h4>
-        <div style="text-align: left; margin-left: 50px">
+        <div class="form-row">
             Price:
             <input class="form-control home-input" type="text" placeholder="Potential price" ng-model="eventPrice" style="width: 250px; display: inline-block; margin-left: 85px">
+        </div>
+        <div class="form-row">
+            Maximum:
+            <input class="form-control home-input" type="text" placeholder="Maximum participants" ng-model="eventSettings.maxPeople" style="width: 250px; display: inline-block; margin-left: 45px">
         </div>
         <a href="javascript:void(0)" class="btn btn-block btn-primary" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
       </form>
