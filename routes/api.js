@@ -74,13 +74,12 @@ exports.createChatRoom = function(req, res) {
 exports.sendMessage = function (req, res) {
     request.post({
         headers: headers,
-        url: url,
+        url: url + '/' + req.body.chatId,
         body: JSON.stringify({
-            operationName: 'RequestChat',
-            nickname: req.body.nickname,
-            subject: req.body.subject
+            operationName: 'SendMessage',
+            text: req.body.text
         })
     }, function (err, _res, body) {
-        console.log(body);
+        res.json(body);
     });
 };
