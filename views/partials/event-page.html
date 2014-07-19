@@ -3,22 +3,27 @@
 </div>
 <div ng-controller="CreateEventCtrl">
 	<h3>Create new meetup</h3>
-	<form class="pure-form pure-form-aligned">
-		<fieldset>
-			<div class="pure-control-group">
-				<label for="postalCode">Postal Code</label>
-				<input id="postalCode" type="text" ng-model="eventSettings.postalCode">
+	<form class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="postalCode">Postal Code</label>
+			<div class="controls">
+				<input type="text" id="inputPostalCode" ng-model="eventSettings.postalCode">
 			</div>
-			<div class="pure-control-group">
-				<label for="sport">Sport</label>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="sportInput">Sport</label>
+			<div class="controls">
 				<multiselect class="input-lg"
 				ng-model="selectedSport"
 				options="sport.name for sport in sportList"
 				change="selected()" ></multiselect>
 			</div>
-			<div class="pure-control-group">
-				<label for="email">Number of results</label>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="numResults">Number of results</label>
+			<div class="controls">
+				<input type="text" id="inputNumResults" ng-model="eventSettings.numResults">
 			</div>
-		<fieldset>
+		</div>
 	</form>
 </div>

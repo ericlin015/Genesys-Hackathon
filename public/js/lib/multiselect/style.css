@@ -2,6 +2,7 @@
 
 multiselect {
     display:block;
+    width: 220px;
 }
 multiselect .btn {
     width: 100%;
