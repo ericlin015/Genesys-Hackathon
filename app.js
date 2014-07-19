@@ -117,6 +117,7 @@ var socket = io(server).on('connection', function (socket) {
         headers: headers,
         url: url + '/' + req.chatId + '/messages'
       }, function (_err, __res, _body) {
+        // to-do: client's socket.on and server's socket.broadcast.emit should use the chatId as the emitted string
         socket.broadcast.emit(req.chatId, JSON.parse(_body).messages[0].text); // broadcasting to all clients
       });
     });

@@ -16,14 +16,14 @@
       <form class="form-group" style="margin-top: 0; display: inline-block" novalidate>
         <div class="form-row">
             Meetup Name:
-            <input class="form-control home-input" type="text" placeholder="Enter Meetup Name" ng-model="eventSettings.subject" style="width: 250px; display: inline-block; margin-left: 13px">
+            <input class="form-control home-input" type="text" placeholder="Enter Meetup Name" ng-model="subject" style="width: 250px; display: inline-block; margin-left: 13px">
         </div>
         <div class="form-row">
-            Sports:
+            Sport:
             <multiselect class="input-lg"
             ng-model="selectedSport"
             options="sport.name for sport in sportList"
-            change="selected()" style="margin-left: 58px; width: 280px"></multiselect>
+            change="selected()" style="margin-left: 65px; width: 280px"></multiselect>
         </div>
         <div class="form-row tall-row" ng-if="selectedSport.id === 10">
             <input class="form-control other-sport" type="text" placeholder="Other Sport" ng-model="customSportName">
@@ -49,8 +49,15 @@
         </div>
         <div class="form-row">
             Maximum:
-            <input class="form-control home-input" type="text" placeholder="Maximum participants" ng-model="capacity" style="width: 250px; display: inline-block; margin-left: 45px">
+            <input class="form-control home-input" type="text" placeholder="Maximum participants" ng-model="capacity" style="width: 250px; display: inline-block; margin-left: 45px; margin-bottom: 20px">
         </div>
+
+        <div class="form-row" ng-show="errors.subject"><span>Please choose a meetup name</span><br></div>
+        <div class="form-row" ng-show="errors.sport"><span>Please select a sport</span><br></div>
+        <div class="form-row" ng-show="errors.gps"><span>Please enter a valid address or postal code</span><br></div>
+        <div class="form-row" ng-show="errors.date"><span>Please select a date</span><br></div>
+        <div class="form-row" ng-show="errors.userId"><span>Your session is invalid, please reconnect</span><br></div>
+
         <a href="javascript:void(0)" class="btn btn-block btn-inverse" ng-click="createNewEvent()" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
       </form>
     </div>
@@ -82,7 +89,7 @@
       <div style="margin-bottom: 30px">
         <h4>Search for meetups</h4>
         <div>
-          Show closest <input type="text" ng-model="closestNumber" placeholder="Number" class="form-control" style="width: 80px; display: inline-block; margin-left: 10px; text-align: center"> of Meetups
+          Show closest <input type="text" ng-model="closestNumber" placeholder="#" class="form-control" style="width: 80px; display: inline-block; margin-left: 10px; text-align: center"> &nbsp Meetups
           <a href="javascript:void(0)" class="btn btn-block btn-inverse" style="width: 100px; display: inline-block; margin-left: 20px" ng-click="updateNearest()">Update</a>
         </div>
       </div>

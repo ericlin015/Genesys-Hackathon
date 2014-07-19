@@ -15,11 +15,21 @@ angular.module('myApp.controllers').controller(
         $scope.startTime = new Date().setHours(13, 0);
         $scope.endTime = new Date().setHours(16, 0);
         $scope.td = new Date();
+        $scope.startTime = new Date().setHours(13, 0);
+        $scope.endTime = new Date().setHours(16, 0);
+        $scope.userId = userProfileService.getUserId();
+        $scope.nickname = userProfileService.getUserProfile().name;
         $scope.eventSettings = {
-            "nickname": userProfileService.getUserProfile().name,
-            "userId": userProfileService.getUserId(),
             "capacity": null,
             "price": null
+        };
+
+        $scope.errors = {
+            "subject": false,
+            "sport": false,
+            "gps": false,
+            "date": false,
+            "userId": false
         };
 
         $scope.selectMenu = function(bool) {
@@ -44,10 +54,41 @@ angular.module('myApp.controllers').controller(
             });
         };
 
-        $scope.createNewEvent = function() {
-            // validateForm();
+        var validateForm = function() {
+            if ($scope.selectedSport.id === 10 && !$scope.customSportName) {
+                $scope.errors.sport = true;
+            } else if (!$scope.selectedSport.name) {
+                $scope.errors.sport = true;
+            }
+            if (!$scope.subject) {
+                $scope.errors.subject = true;
+            }
+            if (!$scope.date) {
+                $scope.errors.date = true;
+            }
+            if (!$scope.userId) {
+                $scope.errors.userId = true;
+            }
+        };
 
-            $scope.geocoder = new google.maps.Geocoder();
+        var errorsExist = function() {
+            var errorsExist = false;
+            angular.forEach($scope.errors, function(error) {
+                if (error) {
+                    errorsExist = true;
+                }
+            });
+
+            return errorsExist;
+        }
+
+        $scope.createNewEvent = function() {
+
+            if (!$scope.eventSettings.address) {
+                $scope.errors.gps = true;
+            } else {
+                $scope.errors.gps = false;
+                $scope.geocoder = new google.maps.Geocoder();
 
             gMapServices.getPlace($scope, function(results, status) {
                 $scope.gps = results[0].geometry.location;
@@ -72,20 +113,47 @@ angular.module('myApp.controllers').controller(
                 $scope.eventSettings.startDate = $scope.date.setHours(myStartTime.getHours(), myEndTime.getMinutes());
                 $scope.eventSettings.endDate = $scope.date.setHours(myEndTime.getHours(), myEndTime.getMinutes());
 
-                $http.post('/api/createEvent', $scope.eventSettings).success(function(data, status, headers, config) {
-                    console.log("success");
+                    if (!errorsExist()) {
+                        if ($scope.selectedSport.id === 10) {
+                            $scope.eventSettings.sport = $scope.customSportName;
+                        } else {
+                            $scope.eventSettings.sport = $scope.selectedSport.name;
+                        }
+                        if ($scope.capacity) {
+                            $scope.eventSettings.capacity = $scope.capacity;
+                        }
+                        if ($scope.price) {
+                            $scope.eventSettings.price = $scope.price;
+                        }
+                        var myStartTime = new Date($scope.startTime);
+                        var myEndTime = new Date($scope.endTime);
+                        $scope.eventSettings.startDate = $scope.date.setHours(myStartTime.getHours(), myEndTime.getMinutes());
+                        $scope.eventSettings.endDate = $scope.date.setHours(myEndTime.getHours(), myEndTime.getMinutes());
 
                     $scope.joinRoom(data);
 
-                }).
-                error(function(data, status, headers, config) {
-                    console.log("failure");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
+                        $http.post('/api/createEvent', $scope.eventSettings).success(function(data, status, headers, config) {
+                            console.log("success");
 
-            }, $scope.eventSettings.address);
+                            $scope.joinRoom(data);
+
+                        }).
+                        error(function(data, status, headers, config) {
+                            console.log("failure");
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        });
+                    } else {
+                        console.log("validation failed");
+                    }
+                }, $scope.eventSettings.address);
+            }
         };
+
+        $scope.joinRoom = function(eventData) {
+            eventService.setCurrentEvent(eventData);
+            $location.path('/chat');
+        }
 
         $scope.loadUserMeetup = function() {
             userProfileService.loadUserMeetup(function(data) {

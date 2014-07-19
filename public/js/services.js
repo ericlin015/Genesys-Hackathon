@@ -54,11 +54,12 @@ angular.module('myApp.services', ['ngCookies'])
         }, {
             "id": 9,
             "name": "Tennis"
-        }, {
-            "id": 10,
-            "name": "Other..."
         }];
 
+        // , {
+        //     "id": 10,
+        //     "name": "Other..."
+        // }];
         this.getSportsList = function() {
             return sportsList;
         };
@@ -91,9 +92,9 @@ angular.module('myApp.services', ['ngCookies'])
             this.userSignIn = function(profileJSON) {
                 $http.post('/api/createUser', profileJSON).success(function(data) {
                     $cookieStore.put('userID', data.userId);
-                    userId = data.userId;
+                    this.userId = data.userId;
                     $location.path('/menu');
-                });
+                }.bind(this));
             };
 
             this.updateNearest = function(maxNum, callback) {
