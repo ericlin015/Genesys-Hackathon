@@ -114,8 +114,8 @@ var socket = io(server).on('connection', function (socket) {
           })
       }, function (err, _res, body) {
         request.get({
-            headers: headers,
-            url: url + '/' + req.chatId + '/messages'
+          headers: headers,
+          url: url + '/' + req.chatId + '/messages'
         }, function (err, _res, body) {
           socket.emit('update messages', JSON.stringify(body).messages); // broadcasting to all clients
         });
