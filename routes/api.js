@@ -114,6 +114,10 @@ exports.watchEvent = function (req, res) {
     res.send(user.subscriptions);
 };
 
+exports.getEvent = function (req, res) {
+    res.json(getEvent(req.body.chatId));
+}
+
 exports.getSubscriptions = function (req, res) {
     var userId = req.body.userId,
         user = getUser(userId);
