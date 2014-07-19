@@ -24,18 +24,25 @@ exports.createUser = function(req, res) {
     res.json({
         userId: id++
     });
+}
 
 exports.createEvent = function(req, res) {
     events.push({
         eventName: req.body.eventName,
-        location: { req.body.lat, req.body.lon },
+        location: { x: req.body.lat, y: req.body.lon },
         sport: req.body.sport,
         maxCapacity: req.body.capacity,
         price: req.body.price
     });
-
-    res.json({
-
-    });
 }
 
+/*
+exports.createChatRoom = function(req, res) {
+    http.post({
+        host: 'localhost',
+        port: 8888,
+        path: '/api/v2/chats'
+    }, function(res) {
+        console.log(res);
+    });
+}*/

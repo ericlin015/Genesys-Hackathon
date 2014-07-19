@@ -72,3 +72,5 @@ app.post('/api/createUser', api.createUser);
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+//app.post('/api/createChatRoom', api.createChatRoom);
