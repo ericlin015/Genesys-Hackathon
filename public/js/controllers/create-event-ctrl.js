@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module('myApp.controllers')
-    .controller('createEventCtrl', function($scope, $http, sportsDataService) {
+    .controller('CreateEventCtrl', function($scope, $http, sportsDataService) {
 
         $scope.sportList = sportsDataService.getSportsList();
-
+        console.log($scope.sportList);
     });
