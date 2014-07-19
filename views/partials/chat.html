@@ -1,5 +1,9 @@
 <div class="menu-content-container" style="text-align: center">
   <div class="menu-content-wrapper">
-  	HELOOOOOOO
+  	<div>
+  		<span ng-repeat="message in messages" ng-if="message.type==='Text">{{message.text}}</span>
+  	</div>
+  	HELOOOOOOO; Data:
+  	{{eventData}}
   </div>
 </div>

@@ -2,7 +2,8 @@
 
 angular.module('myApp.controllers').controller('ChatCtrl',
 
-    function($http, $scope, $location, cookieService, gMapServices, userProfileService, sportsDataService) {
+    function($http, $scope, $location, eventService) {
+        $scope.eventData = eventService.getCurrentEvent();
 
     }
 );

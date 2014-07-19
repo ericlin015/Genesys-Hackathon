@@ -144,6 +144,10 @@ angular.module('myApp.services', ['ngCookies'])
             this.setCurrentEvent = function(eventData) {
                 currentEvent = eventData;
             };
+
+            this.getCurrentEvent = function() {
+                return currentEvent;
+            }
         };
         return new EventService();
     });
