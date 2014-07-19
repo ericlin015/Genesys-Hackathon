@@ -107,3 +107,15 @@ exports.sendStopTypingNotification = function (req, res) {
         res.json(body);
     });
 };
+
+exports.complete = function (req, res) {
+    request.post({
+        headers: headers,
+        url: url + '/' + req.body.chatId,
+        body: JSON.stringify({
+            operationName: 'Complete'
+        })
+    }, function (err, _res, body) {
+        res.json(body);
+    });
+};
