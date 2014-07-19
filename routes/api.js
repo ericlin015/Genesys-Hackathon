@@ -15,8 +15,9 @@ exports.createUser = function (req, res) {
     users.push({
         userId: id,
         name: req.body.userName,
-        lat: req.body.lat,
-        lon: req.body.lon
+        postalCode: req.body.postalCode,
+        lon: req.body.gps.B,
+        lat: req.body.gps.k
     });
 
     res.json({
