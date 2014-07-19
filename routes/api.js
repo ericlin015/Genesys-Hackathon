@@ -14,8 +14,9 @@ var i = 0,
 
 exports.createUser = function (req, res) {
 	users.push({
-		name: req.userName,
-		postalCode: req.postalCode
+		userId: i,
+		name: req.body.userName,
+		postalCode: req.body.postalCode
 	});
 
 	res.json({
