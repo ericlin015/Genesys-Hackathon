@@ -64,6 +64,7 @@ app.get('*', routes.index);
 
 // custom routes
 app.post('/api/createUser', api.createUser);
+app.post('/api/getUser', api.getUser);
 
 /**
  * Start Server

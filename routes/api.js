@@ -1,6 +1,3 @@
-/*
- * Serve JSON to our AngularJS client
- */
 var http = require('http');
 
 exports.name = function(req, res) {
@@ -14,7 +11,7 @@ var id = 0,
     events = [],
     listOfSports = ["Soccer", "Basketball", "Tennis"];
 
-exports.createUser = function(req, res) {
+exports.createUser = function (req, res) {
     users.push({
         userId: id,
         name: req.body.userName,
@@ -24,9 +21,9 @@ exports.createUser = function(req, res) {
     res.json({
         userId: id++
     });
-}
+};
 
-exports.createEvent = function(req, res) {
+exports.createEvent = function (req, res) {
     events.push({
         eventName: req.body.eventName,
         location: { x: req.body.lat, y: req.body.lon },
@@ -34,7 +31,26 @@ exports.createEvent = function(req, res) {
         maxCapacity: req.body.capacity,
         price: req.body.price
     });
-}
+};
+
+exports.getUser = function (req, res) {
+	var userId = parseInt(req.body.userId),
+		ret;
+
+	users.some(function (user) {
+		if (userId === user.userId) {
+			ret = user;
+			return true;
+		}
+	});
+
+    if (ret === void(0)) {
+        // handle failure better
+        ret = {};
+    }
+
+	res.json(ret);
+};
 
 /*
 exports.createChatRoom = function(req, res) {
