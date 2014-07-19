@@ -43,6 +43,8 @@ angular.module('myApp.controllers').controller(
         };
 
         $scope.createNewEvent = function() {
+            // validateForm();
+
             $scope.geocoder = new google.maps.Geocoder();
 
             gMapServices.getPlace($scope, function(results, status) {
