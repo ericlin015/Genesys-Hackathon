@@ -203,15 +203,15 @@ exports.complete = function (req, res) {
     });
 };
 
-exports.getTranscript = function(req, res) {
-    request.get({
-        headers: headers,
-        url: url + '/' + req.body.chatId + '/messages'
-    }, function (err, _res, body) {
-        console.log(body);
-        res.json(body);
-    });
-}
+// exports.getTranscript = function(req, res) {
+//     request.get({
+//         headers: headers,
+//         url: url + '/' + req.body.chatId + '/messages'
+//     }, function (err, _res, body) {
+//         console.log(body);
+//         res.json(body);
+//     });
+// }
 
 // Helpers
 
