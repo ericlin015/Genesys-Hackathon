@@ -84,7 +84,7 @@ angular.module('myApp.services', ['ngCookies'])
                 $http.post('/api/createUser', profileJSON).success(function(data) {
                     console.log(data);
                     $cookieStore.put('userID', data.userId);
-                    $location.path('/mainPage');
+                    $location.path('/menu');
                 });
             }
         };

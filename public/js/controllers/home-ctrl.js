@@ -11,7 +11,7 @@ angular.module('myApp.controllers').controller(
         $scope.init = function() {
             cookieService.checkUser(function(data) {
                 if (data) {
-                    $location.path('/mainPage');
+                    $location.path('/menu');
                 }
             });
         };
