@@ -12,7 +12,11 @@ exports.name = function(req, res) {
 
 // constants
 
-var R = 6371;
+var R = 6371,
+    headers = {
+        apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
+    },
+    url = 'http://localhost:8888/api/v2/chats';
 
 // custom API
 
@@ -24,9 +28,9 @@ exports.createUser = function (req, res) {
     users.push({
         userId: id,
         name: req.body.userName,
-        postalCode: req.body.postalCode/*,
-        lon: req.body.gps.B,
-        lat: req.body.gps.k*/
+        lat: req.body.lat,
+        lon: req.body.lon,
+        subscriptions: []
     });
 
     res.json({
@@ -35,18 +39,44 @@ exports.createUser = function (req, res) {
 };
 
 exports.createEvent = function (req, res) {
-    events.push({
-        eventName: req.body.eventName,
-        lat: req.body.lat,
-        lon: req.body.lon,
-        sport: req.body.sport,
-        maxCapacity: req.body.capacity,
-        price: req.body.price
+    request.post({
+        headers: headers,
+        url: url,
+        body: JSON.stringify({
+            operationName: 'RequestChat',
+            nickname: req.body.nickname,
+            subject: req.body.subject
+        })
+    }, function (err, _res, body) {
+        var evt = {
+            hostId: parseInt(req.body.userId),
+            eventId: JSON.parse(body).id, // needs testing
+            lat: req.body.lat,
+            lon: req.body.lon,
+            sport: req.body.sport, // for searching
+            capacity: req.body.capacity,
+            price: req.body.price
+        };
+
+        events.push(evt);
+        getUser(evt.hostId).subscriptions.push(evt); // creater automatically watches event
+
+        res.send(evt);
     });
 };
 
+exports.watchEvent = function (req, res) {
+    var userId = req.body.userId,
+        evtId = req.body.eventId,
+        user = getUser(userId);
+
+    user.subscriptions.push(getEvent(evtId));
+
+    res.send(user.subscriptions);
+};
+
 exports.getUser = function (req, res) {
-    res.json(getUser(parseInt(req.body.userId)));
+    res.json(getUser(req.body.userId));
 };
 
 exports.getNearestEvents = function (req, res) {
@@ -68,25 +98,6 @@ exports.getNearestEvents = function (req, res) {
 };
 
 // chat API
-
-var headers = {
-        apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
-    },
-    url = 'http://localhost:8888/api/v2/chats';
-
-exports.createChatRoom = function(req, res) {
-    request.post({
-        headers: headers,
-        url: url,
-        body: JSON.stringify({
-            operationName: 'RequestChat',
-            nickname: req.body.nickname,
-            subject: req.body.subject
-        })
-    }, function (err, _res, body) {
-        res.json(body);
-    });
-};
 
 exports.sendMessage = function (req, res) {
     request.post({
@@ -142,9 +153,24 @@ exports.complete = function (req, res) {
 function getUser(userId) {
     var ret;
 
+    userId = parseInt(userId);
+
     users.some(function (user) {
         if (userId === user.userId) {
             ret = user;
+            return true;
+        }
+    });
+
+    return ret || {};
+}
+
+function getEvent(eventId) {
+    var ret;
+
+    events.some(function (evt) {
+        if (eventId === evt.eventId) {
+            ret = evt;
             return true;
         }
     });

@@ -63,11 +63,12 @@ app.get('/api/name', api.name);
 app.get('*', routes.index);
 
 // custom routes
-// to-do: implement pickEvents and getChat
+// to-do: implement getChat
 app.post('/api/createUser', api.createUser);
 app.post('/api/createEvent', api.createEvent);
+app.post('/api/watchEvent', api.watchEvent);
 app.post('/api/getUser', api.getUser);
-app.post('/api/createChatRoom', api.createChatRoom);
+// app.post('/api/createChatRoom', api.createChatRoom); // seems like a duplicate of createEvent
 app.post('/api/sendStartTypingNotification', api.sendStartTypingNotification);
 app.post('/api/sendStopTypingNotification', api.sendStopTypingNotification);
 app.post('/api/sendMessage', api.sendMessage);
