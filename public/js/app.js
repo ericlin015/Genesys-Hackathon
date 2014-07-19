@@ -26,12 +26,8 @@ config(function($routeProvider, $locationProvider) {
         templateUrl: 'partials/menu',
         controller: 'MenuCtrl'
     }).
-    when('/events', {
-        templateUrl: 'partials/events-page',
-        controller: 'EventCtrl'
-    }).
-    whem('/chat', {
-        templateUrl: 'partials/events-page',
+    when('/chat', {
+        templateUrl: 'partials/chat',
         controller: 'ChatCtrl'
     }).
     otherwise({
