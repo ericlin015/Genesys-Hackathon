@@ -70,6 +70,7 @@ app.post('/api/sendStartTypingNotification', api.sendStartTypingNotification);
 app.post('/api/sendStopTypingNotification', api.sendStopTypingNotification);
 app.post('/api/sendMessage', api.sendMessage);
 app.post('/api/complete', api.complete);
+app.post('/api/getTopTenNearestEvents', api.getTopTenNearestEvents);
 
 /**
  * Start Server
