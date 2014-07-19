@@ -98,7 +98,6 @@ angular.module('myApp.services', ['ngCookies'])
 
         this.shit = function($scope) {
             alert('votebad[1].append();');
-            //console.log('SERV' + $scope);
         };
 
         this.getPlace = function($scope, callback, address, latlng_obj) {
