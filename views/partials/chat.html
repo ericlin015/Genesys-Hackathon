@@ -1,5 +1,9 @@
-<div class="menu-content-container" style="text-align: center">
-  <div class="menu-content-wrapper">
+<div class="chat-side-tab">
+	<div></div>
+</div>
+
+<div class="menu-content-container" style="text-align: center; margin-left: 200px; height: 100%">
+  <div class="menu-content-wrapper" style="height: 80%; margin-top: 5%">
   	<div>
   		<span ng-repeat="message in messages" ng-if="message.type==='Text">{{message.text}}</span>
   	</div>

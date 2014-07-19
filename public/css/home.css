@@ -6,7 +6,7 @@
 .home-page-top-bar {
   height: 40px;
   width: 100%;
-  background-color: #e67e22;
+  background-color: #16A085;
   position: absolute;
   top: 0;
   left: 0;
@@ -15,7 +15,7 @@
 .home-page-bottom-bar {
   height: 40px;
   width: 100%;
-  background-color: #e67e22;
+  background-color: #16A085;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -45,14 +45,14 @@
   vertical-align: middle;
   cursor: pointer;
   font-size: 14px;
-  background-color: #e67e22;
+  background-color: #16A085;
   margin-top: 20px;
   border-radius: 3px;
   color: #FAFAFA;
 }
 
 .home-page-btn:hover {
-  background-color: #D66F13;
+  background-color: #23CCAB;
 }
 
 .home-input {

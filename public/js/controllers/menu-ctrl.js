@@ -139,9 +139,12 @@ angular.module('myApp.controllers').controller(
             });
         };
 
+        $scope.joinRoom = function() {
+            //TODO
+        };
+
         $scope.updateNearest = function() {
             userProfileService.updateNearest(parseInt($scope.closestNumber), function(data) {
-                console.log(data);
                 data.forEach(function(t) {
                     t.startDate = new Date(t.startDate);
                 });
