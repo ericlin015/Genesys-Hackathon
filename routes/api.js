@@ -10,8 +10,7 @@ exports.name = function(req, res) {
 
 var id = 0,
     users = [],
-    events = [],
-    listOfSports = ["Soccer", "Basketball", "Tennis"];
+    events = [];
 
 exports.createUser = function (req, res) {
     users.push({
