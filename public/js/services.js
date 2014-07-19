@@ -5,12 +5,12 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('myApp.services', [])
-    .factory('cookieService', function() {
+angular.module('myApp.services', ['ngCookies'])
+    .factory('cookieService', function($cookieStore) {
         var CookieService = function() {
             this.checkUser = function(callback) {
-                // var userID = $cookieStore.get('userID');
-                // callback(userID);
+                var userID = $cookieStore.get('userID');
+                callback(userID);
             }
         };
         return new CookieService();
@@ -59,7 +59,7 @@ angular.module('myApp.services', [])
 
         return new SportsDataService();
     })
-    .factory('userProfileService', function() {
+    .factory('userProfileService', function($http, $cookieStore, $location) {
         var UserProfileService = function() {
             var userProfile = {
                 "name": "defaultName",
@@ -80,10 +80,45 @@ angular.module('myApp.services', [])
                 userId = newUserId;
             };
 
-            this.userSignIn = function() {
-
+            this.userSignIn = function(profileJSON) {
+                $http.post('/api/createUser', profileJSON).success(function(data) {
+                    console.log(data);
+                    $cookieStore.put('userID', data.userId);
+                    $location.path('/mainPage');
+                });
             }
         };
 
         return new UserProfileService();
-    });
+    })
+
+    .factory('gMapServices', function($http, $location, $timeout, $route) {
+    var GMapServices = function() {
+        var self = this;
+
+        this.shit = function($scope) {
+            alert('votebad[1].append();');
+            //console.log('SERV' + $scope);
+        };
+
+        this.getPlace = function($scope, callback, address, latlng_obj) {
+
+            var geocoder = $scope.geocoder;
+            geocoder.geocode({
+                'address': address
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    //console.log('GEOCODER GOT A PLACE');
+                    $scope.$parent.placeObject = results[0];
+                    callback(results);
+                } else if (status == 'OVER_QUERY_LIMIT') {
+                    alert("You're reloading too quickly for our site to keep up!! \n ｡･ﾟﾟ･(>д<)･ﾟﾟ･｡");
+                } else {
+                    alert("Geocode was not successful for the following reason: " + status);
+                }
+            });
+        }
+    };
+
+    return new GMapServices();
+});
