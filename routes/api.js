@@ -15,7 +15,8 @@ exports.createUser = function (req, res) {
     users.push({
         userId: id,
         name: req.body.userName,
-        postalCode: req.body.postalCode
+        lat: req.body.lat,
+        lon: req.body.lon
     });
 
     res.json({
@@ -26,7 +27,10 @@ exports.createUser = function (req, res) {
 exports.createEvent = function (req, res) {
     events.push({
         eventName: req.body.eventName,
-        location: { x: req.body.lat, y: req.body.lon },
+        location: {
+            lat: req.body.lat,
+            lon: req.body.lon
+        },
         sport: req.body.sport,
         maxCapacity: req.body.capacity,
         price: req.body.price
