@@ -1,4 +1,4 @@
-var http = require('http');
+var request = require('request');
 
 exports.name = function(req, res) {
     res.json({
@@ -52,13 +52,59 @@ exports.getUser = function (req, res) {
 	res.json(ret);
 };
 
-/*
+var headers = {
+        apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
+    },
+    url = 'http://localhost:8888/api/v2/chats';
+
 exports.createChatRoom = function(req, res) {
-    http.post({
-        host: 'localhost',
-        port: 8888,
-        path: '/api/v2/chats'
-    }, function(res) {
-        console.log(res);
+    request.post({
+        headers: headers,
+        url: url,
+        body: JSON.stringify({
+            operationName: 'RequestChat',
+            nickname: req.body.nickname,
+            subject: req.body.subject
+        })
+    }, function (err, _res, body) {
+        res.json(body);
     });
-}*/
+};
+
+exports.sendMessage = function (req, res) {
+    request.post({
+        headers: headers,
+        url: url,
+        body: JSON.stringify({
+            operationName: 'RequestChat',
+            nickname: req.body.nickname,
+            subject: req.body.subject
+        })
+    }, function (err, _res, body) {
+        res.json(body);
+    });
+};
+
+exports.sendStartTypingNotification = function(req, res) {
+    var _req = request.post({
+        headers: headers,
+        url : url + '/' + req.body.chatId,
+        body: JSON.stringify({
+            operationName: "SendStartTypingNotification"
+        })
+    }, function(err, _res, body) {
+        res.json(body);
+    });
+}
+
+exports.sendStopTypingNotification = function(req, res) {
+     var _req = request.post({
+        headers: headers,
+        url : url + '/' + req.body.chatId,
+        body: JSON.stringify({
+            operationName: "SendStopTypingNotification"
+        })
+    }, function(err, _res, body) {
+        res.json(body);
+    });
+}
