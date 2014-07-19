@@ -9,17 +9,17 @@ exports.name = function (req, res) {
   });
 };
 
-var i = 0,
+var id = 0,
 	users = [];
 
 exports.createUser = function (req, res) {
 	users.push({
-		userId: i,
+		userId: id,
 		name: req.body.userName,
 		postalCode: req.body.postalCode
 	});
 
 	res.json({
-		userId: i++
+		userId: id++
 	});
 }
