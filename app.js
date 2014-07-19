@@ -74,6 +74,7 @@ app.get('*', routes.index);
 app.post('/api/createUser', api.createUser);
 app.post('/api/createEvent', api.createEvent);
 app.post('/api/watchEvent', api.watchEvent);
+app.post('/api/getEvent', api.getEvent);
 app.post('/api/getUser', api.getUser);
 // app.post('/api/createChatRoom', api.createChatRoom); // seems like a duplicate of createEvent
 app.post('/api/sendStartTypingNotification', api.sendStartTypingNotification);
