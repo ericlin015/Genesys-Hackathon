@@ -166,6 +166,6 @@ angular.module('myApp.services', ['ngCookies'])
         };
         return new EventService();
     }).
-factory('mySocket', function (socketFactory) {
+factory('mySocket', function(socketFactory) {
   return socketFactory();
 });

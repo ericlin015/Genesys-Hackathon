@@ -3,11 +3,12 @@
 </div>
 
 <div class="menu-content-container" style="text-align: center; margin-left: 200px; height: 100%">
-  <div class="menu-content-wrapper" style="height: 80%; margin-top: 5%">
+ 	<div class="menu-content-wrapper" style="height: 80%; margin-top: 5%; position: relative; width:75%; margin-left: 200px">
   	<div>
-  		<span ng-repeat="message in messages" ng-if="message.type==='Text">{{message.text}}</span>
+  		<div class="message-container" ng-repeat="msg in messages">{{msg}}</div>
   	</div>
-	<hr style="width: 70%">
-	<input class="form-control" type="text" placeholder="Enter your message" ng-model="message" style="width: 250px">
+	<input class="form-control" type="text" placeholder="Enter your message" ng-model="myMsg" ng-enter="sendMessage()" style="width: 70%; position: absolute; bottom: 5px; left: 5%">
+	<a href="javascript:void(0)" class="btn btn-primary" ng-click="sendMessage()" style="position: absolute; width: 20%; bottom: 5px; right: 20px; min-width: 50px">Submit</a>
+	{{eventData.chatId}}
   </div>
 </div>
