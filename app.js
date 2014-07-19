@@ -66,6 +66,7 @@ app.get('*', routes.index);
 app.post('/api/createUser', api.createUser);
 app.post('/api/getUser', api.getUser);
 app.post('/api/createChatRoom', api.createChatRoom);
+app.post('/api/sendMessage', api.sendMessage);
 
 /**
  * Start Server

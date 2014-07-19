@@ -52,18 +52,35 @@ exports.getUser = function (req, res) {
 	res.json(ret);
 };
 
+var headers = {
+        apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
+    },
+    url = 'http://localhost:8888/api/v2/chats';
+
 exports.createChatRoom = function(req, res) {
-    var _req = request.post({
-        headers: {
-            apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
-        },
-        url: 'http://localhost:8888/api/v2/chats',
+    request.post({
+        headers: headers,
+        url: url,
         body: JSON.stringify({
-            operationName: req.body.operationName,
+            operationName: 'RequestChat',
+            nickname: req.body.nickname,
+            subject: req.body.subject
+        })
+    }, function (err, _res, body) {
+        res.json(body);
+    });
+};
+
+exports.sendMessage = function (req, res) {
+    request.post({
+        headers: headers,
+        url: url,
+        body: JSON.stringify({
+            operationName: 'RequestChat',
             nickname: req.body.nickname,
             subject: req.body.subject
         })
     }, function (err, _res, body) {
         console.log(body);
     });
-}
+};
