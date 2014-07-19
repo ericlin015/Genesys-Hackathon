@@ -5,4 +5,7 @@ angular.module('myApp.controllers')
 
         $scope.sportList = sportsDataService.getSportsList();
         $scope.selectedSport = {};
+        $scope.eventSettings = {
+
+        };
     });
