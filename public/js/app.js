@@ -3,9 +3,11 @@
 // Declare app level module which depends on filters, and services
 
 angular.module('myApp', [
-    'myApp.controllers',
-    'myApp.filters',
+    'ngRoute',
+    'ngAnimate',
+    'ngCookies',
     'myApp.services',
+    'myApp.controllers',
     'myApp.directives',
     'ui.bootstrap',
     'ui.multiselect'

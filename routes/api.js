@@ -15,7 +15,8 @@ exports.createUser = function (req, res) {
     users.push({
         userId: id,
         name: req.body.userName,
-        postalCode: req.body.postalCode
+        lat: req.body.lat,
+        lon: req.body.lon
     });
 
     res.json({
@@ -26,7 +27,10 @@ exports.createUser = function (req, res) {
 exports.createEvent = function (req, res) {
     events.push({
         eventName: req.body.eventName,
-        location: { x: req.body.lat, y: req.body.lon },
+        location: {
+            lat: req.body.lat,
+            lon: req.body.lon
+        },
         sport: req.body.sport,
         maxCapacity: req.body.capacity,
         price: req.body.price
@@ -84,7 +88,7 @@ exports.sendMessage = function (req, res) {
     });
 };
 
-exports.sendStartTypingNotification = function(req, res) {
+exports.sendStartTypingNotification = function (req, res) {
     var _req = request.post({
         headers: headers,
         url : url + '/' + req.body.chatId,
@@ -96,8 +100,8 @@ exports.sendStartTypingNotification = function(req, res) {
     });
 };
 
-exports.sendStopTypingNotification = function(req, res) {
-     var _req = request.post({
+exports.sendStopTypingNotification = function (req, res) {
+    var _req = request.post({
         headers: headers,
         url : url + '/' + req.body.chatId,
         body: JSON.stringify({
@@ -107,3 +111,27 @@ exports.sendStopTypingNotification = function(req, res) {
         res.json(body);
     });
 };
+
+exports.complete = function (req, res) {
+    request.post({
+        headers: headers,
+        url: url + '/' + req.body.chatId,
+        body: JSON.stringify({
+            operationName: 'Complete'
+        })
+    }, function (err, _res, body) {
+        res.json(body);
+    });
+};
+
+/*exports.getTranscript = function(req, res) {
+    var _req = request.get({
+        headers: headers,
+        url: url + '/' + req.body.chatId + '/messages',
+        body: JSON.stringify({
+            index: req.body.index || 0
+        })
+    }, function(err, _res, body) {
+        res.json(body);
+    });
+}*/

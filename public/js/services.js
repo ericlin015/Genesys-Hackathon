@@ -6,6 +6,16 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('myApp.services', [])
+    .factory('cookieService', function() {
+        var CookieService = function() {
+            this.checkUser = function(callback) {
+                // var userID = $cookieStore.get('userID');
+                // callback(userID);
+            }
+        };
+        return new CookieService();
+    })
+
     .factory('sportsDataService', function() {
         var SportsDataService = function() {
 
@@ -69,6 +79,10 @@ angular.module('myApp.services', [])
             this.setUserId = function(newUserId) {
                 userId = newUserId;
             };
+
+            this.userSignIn = function() {
+
+            }
         };
 
         return new UserProfileService();
