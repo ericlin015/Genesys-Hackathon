@@ -15,5 +15,13 @@ angular.module('myApp.controllers').controller(
             $scope.isCreate = (bool == 'true') ? true: false;
         };
 
+        $scope.checkIfUserExist = function() {
+            cookieService.checkIfUserExist(function(data) {
+                if (!data) {
+                    $location.path('/home');
+                }
+            });
+        };
+
     }
 );
