@@ -44,6 +44,8 @@ if (data.events) {
             })
         }, function (err, _res, body) {
             var newEvt = {
+                nickname: 'testName',
+                subject: 'testSubject',
                 hostId: evt.userId,
                 chatId: JSON.parse(body).id, // needs testing
                 lat: evt.lat,
@@ -87,6 +89,8 @@ exports.createEvent = function (req, res) {
         })
     }, function (err, _res, body) {
         var evt = {
+            nickname: req.body.nickname,
+            subject: req.body.subject,
             hostId: parseInt(req.body.userId),
             chatId: JSON.parse(body).id, // needs testing
             lat: req.body.lat,
