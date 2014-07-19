@@ -13,10 +13,17 @@ var express = require('express'),
   http = require('http'),
   path = require('path'),
 
-  io = require('socket.io');
+  io = require('socket.io'),
+  request = require('request');
 
 var app = module.exports = express();
 
+// statics
+
+var headers = {
+      apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
+  },
+  url = 'http://localhost:8888/api/v2/chats';
 
 /**
  * Configuration
@@ -71,7 +78,7 @@ app.post('/api/getUser', api.getUser);
 // app.post('/api/createChatRoom', api.createChatRoom); // seems like a duplicate of createEvent
 app.post('/api/sendStartTypingNotification', api.sendStartTypingNotification);
 app.post('/api/sendStopTypingNotification', api.sendStopTypingNotification);
-app.post('/api/sendMessage', api.sendMessage);
+// app.post('/api/sendMessage', api.sendMessage);
 app.post('/api/complete', api.complete);
 app.post('/api/getNearestEvents', api.getNearestEvents);
 
@@ -84,11 +91,28 @@ var server = http.createServer(app),
 
 // socket.io
 
-io(server).on('connection', function (socket) {
+// client has to use io() to create a client socket
+// the client socket can listen to what the server emits
+// the server socket can listen to what the client emits
+// they can communicate through the emitted objects
+
+var socket = io(server).on('connection', function (socket) {
     console.log(++userCount + " user(s) connected");
     socket.on('disconnect', function () {
       console.log("a user has disconnected");
       userCount--;
+    }).on('new message', function (req) { // notification from client
+      request.post({
+          headers: headers,
+          url: url + '/' + req.chatId,
+          body: JSON.stringify({
+              operationName: 'SendMessage',
+              text: req.message
+          })
+      }, function (err, _res, body) {
+        // to-do: emit an object along with the string
+        socket.emit('test'); // broadcasting to all clients
+      });
     });
 });
 
