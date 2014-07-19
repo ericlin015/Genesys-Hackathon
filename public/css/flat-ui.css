@@ -2626,8 +2626,8 @@ fieldset[disabled] .navbar-inverse .navbar-btn.active {
 @media (min-width: 768px) {
   .navbar-embossed > .navbar-collapse {
     border-radius: 6px;
-    -webkit-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+/*    -webkit-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);*/
   }
   .navbar-embossed.navbar-inverse .navbar-nav .active > a,
   .navbar-embossed.navbar-inverse .navbar-nav .open > a {

@@ -1,0 +1,48 @@
+<div class="menu-header-wrapper" style="text-align: center; padding-top: 30px">
+  <nav class="navbar navbar-inverse navbar-embossed" role="navigation" style="width: 440px; display: inline-block;">
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a ng-class="{active: isCreate}" ng-click="selectMenu('true')" href="javascript:void(0)">Create Event</a></li>
+        <li><a ng-class="{active: !isCreate}" ng-click="selectMenu('false')" href="javascript:void(0)">Search For Event</a></li>
+       </ul>
+    </div>
+  </nav>
+</div>
+
+<div class="menu-content-container" style="height: 100%; text-align: center">
+  <div class="menu-content-wrapper">
+    <div ng-show="isCreate">
+      <h4>Mendatory fields:</h4>
+      <form class="form-group" style="margin-top: 0; display: inline-block">
+        <div style="text-align: left; margin-left: 50px">
+            Event Name:
+            <input class="form-control home-input" type="text" placeholder="Enter event Name" ng-model="eventName" style="width: 250px; display: inline-block; margin-left: 30px">
+        </div>
+        <div style="text-align: left; margin-left: 50px">
+            Sports:
+            <multiselect class="input-lg"
+            ng-model="selectedSport"
+            options="sport.name for sport in sportList"
+            change="selected()" style="margin-left: 58px; width: 280px"></multiselect>
+        </div>
+        <div style="text-align: left; margin-left: 50px">
+            Maximum:
+            <input class="form-control home-input" type="text" placeholder="Maximum participants" ng-model="maxPeople" style="width: 250px; display: inline-block; margin-left: 45px">
+        </div>
+        <div style="text-align: left; margin-left: 50px">
+            Duration:
+            <input class="form-control home-input" type="text" placeholder="Duration time" ng-model="duration" style="width: 250px; display: inline-block; margin-left: 53px">
+        </div>
+        <hr style="width: 70%">
+        <h4>Optional fields:</h4>
+        <div style="text-align: left; margin-left: 50px">
+            Price:
+            <input class="form-control home-input" type="text" placeholder="Potential price" ng-model="eventPrice" style="width: 250px; display: inline-block; margin-left: 85px">
+        </div>
+      </form>
+    </div>
+    <div ng-show="!isCreate">
+      I am no
+    </div>
+  </div>
+</div>

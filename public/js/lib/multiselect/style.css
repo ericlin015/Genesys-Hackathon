@@ -7,7 +7,7 @@ multiselect {
 }
 multiselect .btn {
     width: 100%;
-    background-color: #FFF;
+    background-color: #95a5a6;
 }
 multiselect .btn.error{
     border: 1px solid #da4f49 !important;
@@ -24,4 +24,7 @@ multiselect .dropdown-menu {
 multiselect .dropdown-menu > li > a {
     padding: 3px 10px;
     cursor:pointer;
+}
+multiselect .dropdown-menu li > a:hover, .dropdown-menu li > a:active, .dropdown-menu li > a:focus {
+    background-color: #7f8c8d;
 }
