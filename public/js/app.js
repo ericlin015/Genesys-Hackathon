@@ -6,12 +6,13 @@ angular.module('myApp', [
     'myApp.controllers',
     'myApp.filters',
     'myApp.services',
-    'myApp.directives'
+    'myApp.directives',
+    'ui.bootstrap'
 ]).
 config(function($routeProvider, $locationProvider) {
     $routeProvider.
     when('/home', {
-        templateUrl: 'partials/partial1',
+        templateUrl: 'partials/home',
         controller: 'Ctrl1'
     }).
     when('/mainPage', {
