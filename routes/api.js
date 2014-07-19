@@ -6,6 +6,8 @@ exports.name = function(req, res) {
     });
 };
 
+// custom API
+
 var id = 0,
     users = [],
     events = [],
@@ -28,33 +30,29 @@ exports.createUser = function (req, res) {
 exports.createEvent = function (req, res) {
     events.push({
         eventName: req.body.eventName,
-        location: {
-            lat: req.body.lat,
-            lon: req.body.lon
-        },
+        lat: req.body.lat,
+        lon: req.body.lon,
         sport: req.body.sport,
         maxCapacity: req.body.capacity,
         price: req.body.price
     });
 };
 
+function getUser(userId) {
+    var ret;
+
+    users.some(function (user) {
+        if (userId === user.userId) {
+            ret = user;
+            return true;
+        }
+    });
+
+    return ret || {};
+}
+
 exports.getUser = function (req, res) {
-	var userId = parseInt(req.body.userId),
-		ret;
-
-	users.some(function (user) {
-		if (userId === user.userId) {
-			ret = user;
-			return true;
-		}
-	});
-
-    if (ret === void(0)) {
-        // handle failure better
-        ret = {};
-    }
-
-	res.json(ret);
+    res.json(getUser(parseInt(req.body.userId)));
 };
 
 var headers = {
@@ -125,86 +123,42 @@ exports.complete = function (req, res) {
     });
 };
 
-/*exports.getTranscript = function(req, res) {
-    var _req = request.get({
-        headers: headers,
-        url: url + '/' + req.body.chatId + '/messages',
-        body: JSON.stringify({
-            index: req.body.index || 0
-        })
-    }, function(err, _res, body) {
-        res.json(body);
-    });
-}*/
-
-exports.getTopTenNearestEvents = function (req, res) {
-
-    Math.toRadians = function(degrees) {
-        return degrees * Math.PI / 180;
-    }
-
-    aLat = req.body.aLat;
-    aLon = req.body.aLon;
-    bLat = req.body.bLat;
-    bLon = req.body.bLon;
-
-    var R = 6371; // km
-    var la1 = Math.toRadians(aLat);
-    var la2 = Math.toRadians(bLat);
-    var de1 = Math.toRadians(aLat-bLat);
-    var de2 = Math.toRadians(aLon-bLon);
-
-    var a = Math.sin(de1/2) * Math.sin(de1/2) +
-            Math.cos(la1) * Math.cos(la2) *
-            Math.sin(de2/2) * Math.sin(de2/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-    var d = R * c;
-    console.log(d);
-
-    /*var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-    {
-        origins: aLat + ',' + aLon,
-        destinations: bLat + ',' + bLon,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC
-
-    }, callback);
-
-    function callback(response, status) {
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
-        for (var i = 0; i < origins.length; i++ ){
-             var results = response.rows[i].elements;
-             console.log(results[i].distance.value);
-        }
-    }*/
-
-/*
-    var _req = request.post({
-        url : 'https://maps.googleapis.com/maps/api/distancematrix/json',
-        body : {
-            
-            
-            mode: 'driving',
-            language: 'en-US',
-            key: 'AIzaSyB74Y__wCGV9dvXK8mWlQR-FTZavQzRcc4'
-        }
-    }, function (err, _res, body) {
-        console.log(body)
-    });*/
-
+function toRadians(degrees) {
+    return degrees * Math.PI / 180;
 }
 
-/*exports.getTranscript = function(req, res) {
-    var _req = request.get({
-        headers: headers,
-        url: url + '/' + req.body.chatId + '/messages',
-        body: JSON.stringify({
-            index: req.body.index || 0
-        })
-    }, function(err, _res, body) {
-        res.json(body);
+var R = 6371; // constant
+
+function getDistance(loc1, loc2) {
+    var la1 = toRadians(loc1.lat),
+        la2 = toRadians(loc2.lat),
+        de1 = toRadians(loc1.lat - loc2.lat),
+        de2 = toRadians(loc1.lon - loc2.lon),
+
+        a = Math.sin(de1 / 2) * Math.sin(de1 / 2) +
+            Math.cos(la1) * Math.cos(la2) *
+            Math.sin(de2 / 2) * Math.sin(de2 / 2),
+        c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)),
+        d = R * c; // distance
+
+    return d;
+}
+
+exports.getNearestEvents = function (req, res) {
+    var userLocation = {
+        lat: req.body.lat,
+        lon: req.body.lon
+    };
+
+    var arr = events.slice().sort(function (a, b) {
+        return (getDistance(userLocation, a) > getDistance(userLocation, b))
+            ? 1
+            : (getDistance(userLocation, a) < getDistance(userLocation, b))
+                ? -1
+                : 0;
     });
-}*/
+
+    console.log(events.map(function (evt) {
+        return getDistance(userLocation, evt);
+    }));
+};

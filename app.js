@@ -64,13 +64,14 @@ app.get('*', routes.index);
 
 // custom routes
 app.post('/api/createUser', api.createUser);
+app.post('/api/createEvent', api.createEvent);
 app.post('/api/getUser', api.getUser);
 app.post('/api/createChatRoom', api.createChatRoom);
 app.post('/api/sendStartTypingNotification', api.sendStartTypingNotification);
 app.post('/api/sendStopTypingNotification', api.sendStopTypingNotification);
 app.post('/api/sendMessage', api.sendMessage);
 app.post('/api/complete', api.complete);
-app.post('/api/getTopTenNearestEvents', api.getTopTenNearestEvents);
+app.post('/api/getNearestEvents', api.getNearestEvents);
 
 /**
  * Start Server
