@@ -1,15 +1,15 @@
 <div class="dropdown">
-  <button class="btn" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}">
+  <button class="btn dropdown-btn" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}">
     <span class="pull-left">{{header}}</span>
     <span class="caret pull-right" style="margin-top: 7px"></span>
   </button>
-  <ul class="dropdown-menu" style="margin-top: 0px !important">
+  <ul class="dropdown-menu" style="margin-top: 0px !important; border:solid 2px #16A085">
     <li ng-show="multiple">
       <button class="btn-link btn-small" ng-click="checkAll()"><i class="icon-ok"></i> Check all</button>
       <button class="btn-link btn-small" ng-click="uncheckAll()"><i class="icon-remove"></i> Uncheck all</button>
     </li>
     <li ng-repeat="i in items | filter:searchText">
-      <a class="multi-dropdown" ng-click="select(i); focus()" style="background-color: #95a5a6; color: #EEE; font-size: 16px">
+      <a class="multi-dropdown" ng-click="select(i); focus()" style="background-color: white; color: black; font-size: 16px">
         <i ng-class="{'icon-ok': i.checked, 'icon-empty': !i.checked}"></i>{{i.label}}</a>
     </li>
   </ul>

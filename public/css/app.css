@@ -24,5 +24,21 @@
 .date-row {
 	display: inline-block;
 	margin-left: 35px;
+}
+
+.tall-row {
 	margin-top: 15px;
+}
+
+.btn-meridian {
+	color: white !important;
+	background-color: #1ABC9C !important;
+	margin-left: 8px;
+}
+
+.other-sport {
+	width: 250px  !important;
+	display: block;
+	float: right;
+	margin-right: 15px;
 }
