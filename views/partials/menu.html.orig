@@ -39,11 +39,15 @@
             Price:
             <input class="form-control home-input" type="text" placeholder="Potential price" ng-model="eventPrice" style="width: 250px; display: inline-block; margin-left: 85px">
         </div>
+<<<<<<< HEAD
+        <a href="javascript:void(0)" class="btn btn-block btn-inverse" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
+=======
         <div class="form-row">
             Maximum:
             <input class="form-control home-input" type="text" placeholder="Maximum participants" ng-model="eventSettings.maxPeople" style="width: 250px; display: inline-block; margin-left: 45px">
         </div>
-        <a href="javascript:void(0)" class="btn btn-block btn-inverse" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
+        <a href="javascript:void(0)" class="btn btn-block btn-primary" style="width: 280px; display: inline-block; margin-top: 20px">Create this event</a>
+>>>>>>> 571162f7ce62595f6b081bce6b7b8421a6cbb2d3
       </form>
     </div>
     <div ng-show="!isCreate">

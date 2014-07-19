@@ -6,7 +6,6 @@
 
 .form-horizontal .control-label {
   width: 46% !important;
-
 }
 
 .form-horizontal input {
@@ -15,4 +14,15 @@
 
 .input-block-level {
   margin-left: 0px !important;
+}
+
+.form-row {
+	text-align: left;
+	margin-left: 50px;
+}
+
+.date-row {
+	display: inline-block;
+	margin-left: 35px;
+	margin-top: 15px;
 }

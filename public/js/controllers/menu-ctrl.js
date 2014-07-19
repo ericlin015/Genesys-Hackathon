@@ -7,12 +7,23 @@ angular.module('myApp.controllers').controller(
     function($scope, $location, cookieService, gMapServices, userProfileService, sportsDataService) {
 
         $scope.isCreate = true;
+        $scope.opened = false;
         $scope.sportList = sportsDataService.getSportsList();
         $scope.selectedSport = {};
-        $scope.eventSettings = {};
+        $scope.td = new Date();
+        $scope.eventSettings = {
+            "date": $scope.td
+        };
 
         $scope.selectMenu = function(bool) {
-            $scope.isCreate = (bool == 'true') ? true: false;
+            $scope.isCreate = (bool == 'true') ? true : false;
+        };
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
         };
 
         $scope.checkIfUserExist = function() {
@@ -22,6 +33,5 @@ angular.module('myApp.controllers').controller(
                 }
             });
         };
-
     }
 );

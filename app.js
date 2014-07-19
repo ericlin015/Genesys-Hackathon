@@ -13,7 +13,7 @@ var express = require('express'),
   http = require('http'),
   path = require('path'),
 
-  socket = require('socket.io');
+  io = require('socket.io');
 
 var app = module.exports = express();
 
@@ -63,10 +63,12 @@ app.get('/api/name', api.name);
 app.get('*', routes.index);
 
 // custom routes
+// to-do: implement getChat
 app.post('/api/createUser', api.createUser);
 app.post('/api/createEvent', api.createEvent);
+app.post('/api/watchEvent', api.watchEvent);
 app.post('/api/getUser', api.getUser);
-app.post('/api/createChatRoom', api.createChatRoom);
+// app.post('/api/createChatRoom', api.createChatRoom); // seems like a duplicate of createEvent
 app.post('/api/sendStartTypingNotification', api.sendStartTypingNotification);
 app.post('/api/sendStopTypingNotification', api.sendStopTypingNotification);
 app.post('/api/sendMessage', api.sendMessage);
@@ -77,8 +79,19 @@ app.post('/api/getNearestEvents', api.getNearestEvents);
  * Start Server
  */
 
-http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
+var server = http.createServer(app),
+  userCount = 0;
+
+// socket.io
+
+io(server).on('connection', function (socket) {
+    console.log(++userCount + " user(s) connected");
+    socket.on('disconnect', function () {
+      console.log("a user has disconnected");
+      userCount--;
+    });
 });
 
-//app.post('/api/createChatRoom', api.createChatRoom);
+server.listen(app.get('port'), function () {
+  console.log('Express server listening on port ' + app.get('port'));
+});
