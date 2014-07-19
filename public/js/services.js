@@ -151,4 +151,14 @@ angular.module('myApp.services', ['ngCookies'])
     };
 
     return new GMapServices();
-});
+})
+    .factory('eventService', function() {
+        var EventService = function() {
+            var currentEvent = {};
+
+            this.setCurrentEvent = function(eventData) {
+                currentEvent = eventData;
+            };
+        };
+        return new EventService();
+    });

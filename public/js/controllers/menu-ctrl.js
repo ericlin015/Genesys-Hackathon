@@ -4,7 +4,7 @@ angular.module('myApp.controllers').controller(
 
     'MenuCtrl',
 
-    function($http, $scope, $location, cookieService, gMapServices, userProfileService, sportsDataService) {
+    function($http, $scope, $location, cookieService, gMapServices, userProfileService, sportsDataService, eventService) {
 
         $scope.isCreate = true;
         $scope.opened = false;
@@ -48,6 +48,9 @@ angular.module('myApp.controllers').controller(
                 $scope.gps = results[0].geometry.location;
                 $scope.eventSettings.lat = $scope.gps.k;
                 $scope.eventSettings.lon = $scope.gps.B;
+                //TEMP USER ID
+                $scope.eventSettings.userId = 2;
+
                 if ($scope.selectedSport.id === 10) {
                     $scope.eventSettings.sport = $scope.customSportName;
                 } else {
@@ -64,8 +67,10 @@ angular.module('myApp.controllers').controller(
 
                 $http.post('/api/createEvent', $scope.eventSettings).success(function(data, status, headers, config) {
                     console.log("success");
-                    // this callback will be called asynchronously
-                    // when the response is available
+
+                    eventService.setCurrentEvent(data);
+                    $location.path('/chat');
+
                 }).
                 error(function(data, status, headers, config) {
                     console.log("failure");
