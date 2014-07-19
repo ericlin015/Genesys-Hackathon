@@ -63,6 +63,7 @@ app.get('/api/name', api.name);
 app.get('*', routes.index);
 
 // custom routes
+// to-do: implement pickEvents and getChat
 app.post('/api/createUser', api.createUser);
 app.post('/api/createEvent', api.createEvent);
 app.post('/api/getUser', api.getUser);
@@ -77,19 +78,19 @@ app.post('/api/getNearestEvents', api.getNearestEvents);
  * Start Server
  */
 
-var server = http.createServer(app);
+var server = http.createServer(app),
+  userCount = 0;
 
 // socket.io
 
 io(server).on('connection', function (socket) {
-    console.log("a user has connected");
+    console.log(++userCount + " user(s) connected");
     socket.on('disconnect', function () {
-        console.log("a user has disconnected");
+      console.log("a user has disconnected");
+      userCount--;
     });
 });
 
 server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
-
-//app.post('/api/createChatRoom', api.createChatRoom);
