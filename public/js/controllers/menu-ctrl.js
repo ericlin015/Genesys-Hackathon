@@ -26,6 +26,12 @@ angular.module('myApp.controllers').controller(
             $scope.opened = true;
         };
 
-
+        $scope.checkIfUserExist = function() {
+            cookieService.checkIfUserExist(function(data) {
+                if (!data) {
+                    $location.path('/home');
+                }
+            });
+        };
     }
 );

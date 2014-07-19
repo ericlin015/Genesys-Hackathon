@@ -11,6 +11,11 @@ angular.module('myApp.services', ['ngCookies'])
             this.checkUser = function(callback) {
                 var userID = $cookieStore.get('userID');
                 callback(userID);
+            };
+
+            this.checkIfUserExist = function(callback) {
+                var userID = $cookieStore.get('userID');
+                callback(userID);
             }
         };
         return new CookieService();
