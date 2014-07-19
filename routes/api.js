@@ -84,7 +84,7 @@ exports.sendMessage = function (req, res) {
     });
 };
 
-exports.sendStartTypingNotification = function(req, res) {
+exports.sendStartTypingNotification = function (req, res) {
     var _req = request.post({
         headers: headers,
         url : url + '/' + req.body.chatId,
@@ -96,8 +96,8 @@ exports.sendStartTypingNotification = function(req, res) {
     });
 };
 
-exports.sendStopTypingNotification = function(req, res) {
-     var _req = request.post({
+exports.sendStopTypingNotification = function (req, res) {
+    var _req = request.post({
         headers: headers,
         url : url + '/' + req.body.chatId,
         body: JSON.stringify({
