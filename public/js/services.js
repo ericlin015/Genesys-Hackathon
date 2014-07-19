@@ -48,4 +48,28 @@ angular.module('myApp.services', [])
         };
 
         return new SportsDataService();
+    })
+    .factory('userProfileService', function() {
+        var UserProfileService = function() {
+            var userProfile = {
+                "name": "defaultName",
+                "postalCode": "defaultPostalCode",
+            }
+
+            var userId = null;
+
+            this.setUserProfile = function(newUserProfile) {
+                userProfile = newUserProfile;
+            };
+
+            this.getUserProfile = function() {
+                return userProfile;
+            };
+
+            this.setUserId = function(newUserId) {
+                userId = newUserId;
+            };
+        };
+
+        return new UserProfileService();
     });
