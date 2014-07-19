@@ -7,15 +7,14 @@
 		<div style="margin-left: 85px">Play</div>
 	</div>
 
-	<form class="pure-form pure-form-aligned home-form">
+	<form class="form-group" style="text-align: center; margin-top: 30px">
 	    <fieldset>
-			<div class="pure-control-group home-input-row">
-	            <input type="text" placeholder="Your Name" ng-model="userName">
-	        </div>
-
-	        <div class="pure-control-group home-input-row">
-	            <input type="text" placeholder="Your Postal Code" ng-model="postalCode">
-	        </div>
+	    <div style="text-align: center;">
+            <input class="form-control home-input" type="text" placeholder="Your Name" ng-model="userName" style="width: 250px; display: inline-block">
+        </div>
+        <div style="text-align: center;">
+            <input class="form-control home-input" type="text" placeholder="Your Postal Code" ng-model="postalCode" style="width: 250px; display: inline-block">
+        </div>
 
 	        <div type="submit" class="home-page-btn" ng-click="signIn()">Sign in</div>
 	    </fieldset>
