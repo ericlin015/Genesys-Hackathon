@@ -13,6 +13,7 @@ var id = 0,
 	users = [];
 
 exports.createUser = function (req, res) {
+	
 	users.push({
 		userId: id,
 		name: req.body.userName,
@@ -23,3 +24,5 @@ exports.createUser = function (req, res) {
 		userId: id++
 	});
 }
+
+exports.
