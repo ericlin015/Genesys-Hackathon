@@ -16,7 +16,7 @@
       <form class="form-group" style="margin-top: 0; display: inline-block">
         <div class="form-row">
             Meetup Name:
-            <input class="form-control home-input" type="text" placeholder="Enter event Name" ng-model="eventSettings.eventName" style="width: 250px; display: inline-block; margin-left: 13px">
+            <input class="form-control home-input" type="text" placeholder="Enter Meetup Name" ng-model="eventSettings.eventName" style="width: 250px; display: inline-block; margin-left: 13px">
         </div>
         <div class="form-row">
             Sports:
@@ -25,13 +25,17 @@
             options="sport.name for sport in sportList"
             change="selected()" style="margin-left: 58px; width: 280px"></multiselect>
         </div>
-        <div class="date-row">
+        <div class="form-row tall-row" ng-if="selectedSport.id === 10">
+            <input class="form-control other-sport" type="text" placeholder="Other Sport" ng-model="customSport.name">
+        </div>
+        <div class="date-row tall-row">
             Select Date:
             <input type="text" class="form-control" datepicker-popup="MMMM dd, yyyy" ng-model="eventSettings.date" min-date="td" is-open="opened" ng-required="true" style="width: 250px; margin-left: 35px; display:inline-block" ng-click="open($event)">
         </div>
-        <div class="form-row">
-            Duration:
-            <input class="form-control home-input" type="text" placeholder="Duration time" ng-model="eventSettings.duration" style="width: 250px; display: inline-block; margin-left: 53px">
+        <div class="form-row tall-row">
+            <span>Start Time</span><span style="float:right">End Time</span><br>
+            <timepicker ng-model="eventSettings.startTime" style="display: inline-block"></timepicker>
+            <timepicker ng-model="eventSettings.endTime" style="display: inline-block; float:right"></timepicker>
         </div>
         <hr style="width: 70%">
         <h4>Optional fields:</h4>
@@ -48,23 +52,69 @@
     </div>
     <div ng-show="!isCreate">
       <div style="display: table; width: 80%; margin: 0 auto;">
-      <table id="filter-table" class="table">
-        <tbody>
-        <tr>
-           <td>Subject:</td>
-           <td>Payday fun fun group</td>
-           <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
-           <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
-        </tr>
-        <tr>
-          <td>Subject:</td>
-           <td>Super long styling group and stuff</td>
-           <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
-           <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
-        </tr>
-        </tbody>
-      </table>
+        <h4>Confirmed Meetups</h4>
+        <table id="filter-table" class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th># of Participants</th>
+            <th>Chat</th>
+            <th>Leave group</th>
+          </tr>
+        </thead>
+          <tbody>
+          <tr>
+             <td>Payday fun fun group</td>
+             <td>5</td>
+             <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
+             <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
+          </tr>
+          <tr>
+            <td>Subject:</td>
+             <td>Super long styling group and stuff</td>
+             <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
+             <td><a href="javascript:void(0)" class="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
+      <hr style="width: 70%">
+      <div style="margin-bottom: 30px">
+        <h4>Search for meetups</h4>
+        <div>
+          Show closest <input type="text" value="" placeholder="Number" class="form-control" style="width: 80px; display: inline-block; margin-left: 10px; text-align: center"> of Meetups
+          <a href="javascript:void(0)" class="btn btn-block btn-inverse" style="width: 100px; display: inline-block; margin-left: 20px">Update</a>
+        </div>
+      </div>
+      <div style="display: table; width: 80%; margin: 0 auto;">
+        <table id="filter-table" class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th># of Participants</th>
+              <th>Sports Type</th>
+              <th>Time details</th>
+              <th>Chat</th>
+            </tr>
+          </thead>
+            <tbody>
+            <tr>
+               <td>Payday fun fun group</td>
+               <td>5</td>
+               <td>Football</td>
+               <td>2012- blah</td>
+               <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
+            </tr>
+            <tr>
+              <td>Super long styling group and stuff</td>
+               <td>10</td>
+               <td>Football</td>
+               <td>2012- blah</td>
+               <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn">Join chatroom</a></td>
+            </tr>
+            </tbody>
+          </table>
+          </div>
     </div>
   </div>
 </div>
