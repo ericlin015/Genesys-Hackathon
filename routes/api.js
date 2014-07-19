@@ -227,6 +227,8 @@ function getUser(userId) {
         }
     });
 
+    console.log(ret ? "user exists" : "user does not exist");
+
     return ret || {};
 }
 
