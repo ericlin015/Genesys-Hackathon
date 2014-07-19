@@ -59,9 +59,9 @@ exports.createChatRoom = function(req, res) {
         },
         url: 'http://localhost:8888/api/v2/chats',
         body: JSON.stringify({
-            operationName: 'RequestChat',
-            nickname: 'Test',
-            subject: 'Whatever'
+            operationName: req.body.operationName,
+            nickname: req.body.nickname,
+            subject: req.body.subject
         })
     }, function (err, _res, body) {
         console.log(body);
