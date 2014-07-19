@@ -1,4 +1,4 @@
-var http = require('http');
+var request = require('request');
 
 exports.name = function(req, res) {
     res.json({
@@ -52,13 +52,18 @@ exports.getUser = function (req, res) {
 	res.json(ret);
 };
 
-/*
 exports.createChatRoom = function(req, res) {
-    http.post({
-        host: 'localhost',
-        port: 8888,
-        path: '/api/v2/chats'
-    }, function(res) {
-        console.log(res);
+    var _req = request.post({
+        headers: {
+            apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
+        },
+        url: 'http://localhost:8888/api/v2/chats',
+        body: JSON.stringify({
+            operationName: 'RequestChat',
+            nickname: 'Test',
+            subject: 'Whatever'
+        })
+    }, function (err, _res, body) {
+        console.log(body);
     });
-}*/
+}
