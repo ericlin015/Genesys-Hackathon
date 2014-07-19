@@ -54,6 +54,8 @@ exports.createEvent = function (req, res) {
             lat: req.body.lat,
             lon: req.body.lon,
             sport: req.body.sport, // for searching
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
             capacity: req.body.capacity,
             price: req.body.price
         };
@@ -72,6 +74,13 @@ exports.watchEvent = function (req, res) {
 
     user.subscriptions.push(getEvent(evtId));
 
+    res.send(user.subscriptions);
+};
+
+exports.getSubscriptions = function (req, res) {
+    var userId = req.body.userId,
+        user = getUser(userId);
+        
     res.send(user.subscriptions);
 };
 
