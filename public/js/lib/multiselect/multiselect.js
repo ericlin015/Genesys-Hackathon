@@ -1,4 +1,3 @@
-// Source: https://github.com/amitava82/angular-multiselect
 angular.module('ui.multiselect', [])
 
 //from bootstrap-ui typeahead parser
@@ -30,9 +29,9 @@ angular.module('ui.multiselect', [])
     }
 ])
 
-.directive('multiselect', ['$parse', '$document', '$compile', '$interpolate', 'optionParser',
+.directive('multiselect', ['$parse', '$document', '$compile', 'optionParser',
 
-    function($parse, $document, $compile, $interpolate, optionParser) {
+    function($parse, $document, $compile, optionParser) {
         return {
             restrict: 'E',
             require: 'ngModel',
@@ -43,7 +42,7 @@ angular.module('ui.multiselect', [])
                     isMultiple = attrs.multiple ? true : false,
                     required = false,
                     scope = originalScope.$new(),
-                    changeHandler = attrs.change || angular.noop;
+                    changeHandler = attrs.change || anguler.noop;
 
                 scope.items = [];
                 scope.header = 'Select';
@@ -110,7 +109,7 @@ angular.module('ui.multiselect', [])
                         local[parsedResult.itemName] = model[i];
                         scope.items.push({
                             label: parsedResult.viewMapper(local),
-                            model: parsedResult.modelMapper(local),
+                            model: model[i],
                             checked: false
                         });
                     }
@@ -121,23 +120,14 @@ angular.module('ui.multiselect', [])
                 element.append($compile(popUpEl)(scope));
 
                 function getHeaderText() {
-                    if (is_empty(modelCtrl.$modelValue)) return scope.header = attrs.msHeader || 'Select';
-
+                    if (is_empty(modelCtrl.$modelValue)) return scope.header = 'Select';
                     if (isMultiple) {
-                        if (attrs.msSelected) {
-                            scope.header = $interpolate(attrs.msSelected)(scope);
-                        } else {
-                            if (modelCtrl.$modelValue.length == 1) {
-                                scope.header = modelCtrl.$modelValue[0];
-                            } else {
-                                scope.header = modelCtrl.$modelValue.length + ' ' + 'selected';
-                            }
-                        }
-
+                        scope.header = modelCtrl.$modelValue.length + ' ' + 'selected';
                     } else {
                         var local = {};
                         local[parsedResult.itemName] = modelCtrl.$modelValue;
-                        scope.header = modelCtrl.$modelValue;
+
+                        scope.header = parsedResult.viewMapper(local);
                     }
                 }
 
@@ -193,16 +183,13 @@ angular.module('ui.multiselect', [])
                     if (!angular.isArray(newVal)) {
                         angular.forEach(scope.items, function(item) {
                             if (angular.equals(item.model, newVal)) {
-                                scope.uncheckAll();
                                 item.checked = true;
-                                setModelValue(false);
                                 return false;
                             }
                         });
                     } else {
-                        angular.forEach(scope.items, function(item) {
-                            item.checked = false;
-                            angular.forEach(newVal, function(i) {
+                        angular.forEach(newVal, function(i) {
+                            angular.forEach(scope.items, function(item) {
                                 if (angular.equals(item.model, i)) {
                                     item.checked = true;
                                 }
