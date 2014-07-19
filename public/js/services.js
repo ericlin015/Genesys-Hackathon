@@ -21,49 +21,52 @@ angular.module('myApp.services', ['ngCookies'])
         return new CookieService();
     })
 
-    .factory('sportsDataService', function() {
-        var SportsDataService = function() {
+.factory('sportsDataService', function() {
+    var SportsDataService = function() {
 
-            var sportsList = [{
-                "id": 0,
-                "name": "Soccer"
-            }, {
-                "id": 1,
-                "name": "Basketball"
-            }, {
-                "id": 2,
-                "name": "Ultimate Frisbee"
-            }, {
-                "id": 3,
-                "name": "Rugby"
-            }, {
-                "id": 4,
-                "name": "American Football"
-            }, {
-                "id": 5,
-                "name": "Volleyball"
-            }, {
-                "id": 6,
-                "name": "Baseball"
-            }, {
-                "id": 7,
-                "name": "Running"
-            }, {
-                "id": 8,
-                "name": "Badminton"
-            }, {
-                "id": 9,
-                "name": "Tennis"
-            }];
+        var sportsList = [{
+            "id": 0,
+            "name": "Soccer"
+        }, {
+            "id": 1,
+            "name": "Basketball"
+        }, {
+            "id": 2,
+            "name": "Ultimate Frisbee"
+        }, {
+            "id": 3,
+            "name": "Rugby"
+        }, {
+            "id": 4,
+            "name": "American Football"
+        }, {
+            "id": 5,
+            "name": "Volleyball"
+        }, {
+            "id": 6,
+            "name": "Baseball"
+        }, {
+            "id": 7,
+            "name": "Running"
+        }, {
+            "id": 8,
+            "name": "Badminton"
+        }, {
+            "id": 9,
+            "name": "Tennis"
+        }, {
+            "id": 10,
+            "name": "Other..."
+        }];
 
-            this.getSportsList = function() {
-                return sportsList;
-            };
-
+        this.getSportsList = function() {
+            return sportsList;
         };
 
-        return new SportsDataService();
-    })
+    };
+
+    return new SportsDataService();
+})
     .factory('userProfileService', function($http, $cookieStore, $location) {
         var UserProfileService = function($cookieStore) {
             var userProfile = {
@@ -104,7 +107,7 @@ angular.module('myApp.services', ['ngCookies'])
         return new UserProfileService();
     })
 
-    .factory('gMapServices', function($http, $location, $timeout, $route) {
+.factory('gMapServices', function($http, $location, $timeout, $route) {
     var GMapServices = function() {
         var self = this;
 

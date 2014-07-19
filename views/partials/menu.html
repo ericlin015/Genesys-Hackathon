@@ -16,7 +16,7 @@
       <form class="form-group" style="margin-top: 0; display: inline-block">
         <div class="form-row">
             Meetup Name:
-            <input class="form-control home-input" type="text" placeholder="Enter event Name" ng-model="eventSettings.eventName" style="width: 250px; display: inline-block; margin-left: 13px">
+            <input class="form-control home-input" type="text" placeholder="Enter Meetup Name" ng-model="eventSettings.eventName" style="width: 250px; display: inline-block; margin-left: 13px">
         </div>
         <div class="form-row">
             Sports:
@@ -25,13 +25,17 @@
             options="sport.name for sport in sportList"
             change="selected()" style="margin-left: 58px; width: 280px"></multiselect>
         </div>
-        <div class="date-row">
+        <div class="form-row tall-row" ng-if="selectedSport.id === 10">
+            <input class="form-control other-sport" type="text" placeholder="Other Sport" ng-model="customSport.name">
+        </div>
+        <div class="date-row tall-row">
             Select Date:
             <input type="text" class="form-control" datepicker-popup="MMMM dd, yyyy" ng-model="eventSettings.date" min-date="td" is-open="opened" ng-required="true" style="width: 250px; margin-left: 35px; display:inline-block" ng-click="open($event)">
         </div>
-        <div class="form-row">
-            Duration:
-            <input class="form-control home-input" type="text" placeholder="Duration time" ng-model="eventSettings.duration" style="width: 250px; display: inline-block; margin-left: 53px">
+        <div class="form-row tall-row">
+            <span>Start Time</span><span style="float:right">End Time</span><br>
+            <timepicker ng-model="eventSettings.startTime" style="display: inline-block"></timepicker>
+            <timepicker ng-model="eventSettings.endTime" style="display: inline-block; float:right"></timepicker>
         </div>
         <hr style="width: 70%">
         <h4>Optional fields:</h4>

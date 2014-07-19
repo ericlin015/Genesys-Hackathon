@@ -50,7 +50,7 @@ exports.createEvent = function (req, res) {
     }, function (err, _res, body) {
         var evt = {
             hostId: parseInt(req.body.userId),
-            eventId: JSON.parse(body).id, // needs testing
+            chatId: JSON.parse(body).id, // needs testing
             lat: req.body.lat,
             lon: req.body.lon,
             sport: req.body.sport, // for searching
@@ -67,7 +67,7 @@ exports.createEvent = function (req, res) {
 
 exports.watchEvent = function (req, res) {
     var userId = req.body.userId,
-        evtId = req.body.eventId,
+        evtId = req.body.chatId,
         user = getUser(userId);
 
     user.subscriptions.push(getEvent(evtId));
@@ -99,18 +99,18 @@ exports.getNearestEvents = function (req, res) {
 
 // chat API
 
-exports.sendMessage = function (req, res) {
-    request.post({
-        headers: headers,
-        url: url + '/' + req.body.chatId,
-        body: JSON.stringify({
-            operationName: 'SendMessage',
-            text: req.body.text
-        })
-    }, function (err, _res, body) {
-        res.json(body);
-    });
-};
+// exports.sendMessage = function (req, res) {
+//     request.post({
+//         headers: headers,
+//         url: url + '/' + req.body.chatId,
+//         body: JSON.stringify({
+//             operationName: 'SendMessage',
+//             text: req.body.text
+//         })
+//     }, function (err, _res, body) {
+//         res.json(body);
+//     });
+// };
 
 exports.sendStartTypingNotification = function (req, res) {
     var _req = request.post({
@@ -148,6 +148,16 @@ exports.complete = function (req, res) {
     });
 };
 
+exports.getTranscript = function(req, res) {
+    request.get({
+        headers: headers,
+        url: 'http://localhost:8888/api/v2/chats/' + req.body.chatId + '/messages'
+    }, function (err, _res, body) {
+        console.log(body);
+        res.json(body);
+    });
+}
+
 // Helpers
 
 function getUser(userId) {
@@ -165,11 +175,11 @@ function getUser(userId) {
     return ret || {};
 }
 
-function getEvent(eventId) {
+function getEvent(chatId) {
     var ret;
 
     events.some(function (evt) {
-        if (eventId === evt.eventId) {
+        if (chatId === evt.chatId) {
             ret = evt;
             return true;
         }
