@@ -13,7 +13,7 @@
   <div class="menu-content-wrapper">
     <div ng-show="isCreate">
       <h4>Mandatory fields:</h4>
-      <form class="form-group" style="margin-top: 0; display: inline-block">
+      <form class="form-group" style="margin-top: 0; display: inline-block" novalidate>
         <div class="form-row">
             Meetup Name:
             <input class="form-control home-input" type="text" placeholder="Enter Meetup Name" ng-model="subject" style="width: 250px; display: inline-block; margin-left: 13px">
@@ -79,7 +79,7 @@
             <td>{{list.subject}}</td>
             <td>{{list.sport}}</td>
             <td>{{list.capacity}}</td>
-            <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn" ng-click="joinRoom(list.chatId)">Join chatroom</a></td>
+            <td><a href="javascript:void(0)" class="btn btn-lg btn-inverse filter-control-btn" ng-click="joinRoom(list)">Join chatroom</a></td>
             <td><a href="javascript:void(0)" ctheListass="btn btn-lg btn-danger filter-control-btn">Unsubscribe</a></td>
           </tr>
           </tbody>

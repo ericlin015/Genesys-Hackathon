@@ -23,7 +23,16 @@ angular.module('myApp.controllers').controller('ChatCtrl',
 
         //mySocket.emit('new message', { userName: 'Tyron', message: 'hey', chatId: "5c977644-b9fa-4344-ba4f-93967fe2fdd3" });
 
-        $scope.eventData = eventService.getCurrentEvent();
+
+        mySocket.on($scope.eventData.chatId, function(res) {
+        	console.log(res);
+            var temp = res.split(':');
+            $scope.messages.push('[' + temp[0] + '] ' + temp[1]);
+        });
+
+
+        //mySocket.emit('new message', { userName: 'Tyron', message: 'hey', chatId: $scope.eventData.chatId });
+
 
     }
 );

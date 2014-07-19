@@ -1,9 +1,9 @@
 .chat-side-tab {
-	height: 100%;
-	width: 400px;
-	position: fixed;
-	background-color: #16A085;
-	transition: width linear 1s;
+ height: 100%;
+ width: 400px;
+ position: fixed;
+ background-color: #16A085;
+ transition: width linear 1s;
 }
 
 .message-container {
