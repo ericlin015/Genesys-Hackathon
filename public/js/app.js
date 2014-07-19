@@ -6,6 +6,7 @@ angular.module('myApp', [
     'ngRoute',
     'ngAnimate',
     'ngCookies',
+    'btford.socket-io',
     'myApp.services',
     'myApp.controllers',
     'myApp.directives',
