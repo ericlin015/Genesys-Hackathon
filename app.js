@@ -13,7 +13,7 @@ var express = require('express'),
   http = require('http'),
   path = require('path'),
 
-  socket = require('socket.io');
+  io = require('socket.io');
 
 var app = module.exports = express();
 
@@ -77,7 +77,18 @@ app.post('/api/getNearestEvents', api.getNearestEvents);
  * Start Server
  */
 
-http.createServer(app).listen(app.get('port'), function () {
+var server = http.createServer(app);
+
+// socket.io
+
+io(server).on('connection', function (socket) {
+    console.log("a user has connected");
+    socket.on('disconnect', function () {
+        console.log("a user has disconnected");
+    });
+});
+
+server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 

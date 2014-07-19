@@ -1,10 +1,18 @@
+// requires
+
 var request = require('request');
+
+// test API
 
 exports.name = function(req, res) {
     res.json({
         name: 'Bob'
     });
 };
+
+// constants
+
+var R = 6371;
 
 // custom API
 
@@ -16,9 +24,9 @@ exports.createUser = function (req, res) {
     users.push({
         userId: id,
         name: req.body.userName,
-        postalCode: req.body.postalCode,
+        postalCode: req.body.postalCode/*,
         lon: req.body.gps.B,
-        lat: req.body.gps.k
+        lat: req.body.gps.k*/
     });
 
     res.json({
@@ -37,22 +45,29 @@ exports.createEvent = function (req, res) {
     });
 };
 
-function getUser(userId) {
-    var ret;
-
-    users.some(function (user) {
-        if (userId === user.userId) {
-            ret = user;
-            return true;
-        }
-    });
-
-    return ret || {};
-}
-
 exports.getUser = function (req, res) {
     res.json(getUser(parseInt(req.body.userId)));
 };
+
+exports.getNearestEvents = function (req, res) {
+    var userLocation = {
+            lat: req.body.lat,
+            lon: req.body.lon
+        },
+        max = req.body.max || 10;
+
+    var arr = events.slice().sort(function (a, b) {
+        return (getDistance(userLocation, a) > getDistance(userLocation, b))
+            ? 1
+            : (getDistance(userLocation, a) < getDistance(userLocation, b))
+                ? -1
+                : 0;
+    }).slice(0, max);
+
+    res.send(arr);
+};
+
+// chat API
 
 var headers = {
         apikey: 'N18TFGbKpn0zaGLXDFZhPWpTcB2eyx44'
@@ -122,11 +137,24 @@ exports.complete = function (req, res) {
     });
 };
 
+// Helpers
+
+function getUser(userId) {
+    var ret;
+
+    users.some(function (user) {
+        if (userId === user.userId) {
+            ret = user;
+            return true;
+        }
+    });
+
+    return ret || {};
+}
+
 function toRadians(degrees) {
     return degrees * Math.PI / 180;
 }
-
-var R = 6371; // constant
 
 function getDistance(loc1, loc2) {
     var la1 = toRadians(loc1.lat),
@@ -142,22 +170,3 @@ function getDistance(loc1, loc2) {
 
     return d;
 }
-
-exports.getNearestEvents = function (req, res) {
-    var userLocation = {
-        lat: req.body.lat,
-        lon: req.body.lon
-    };
-
-    var arr = events.slice().sort(function (a, b) {
-        return (getDistance(userLocation, a) > getDistance(userLocation, b))
-            ? 1
-            : (getDistance(userLocation, a) < getDistance(userLocation, b))
-                ? -1
-                : 0;
-    });
-
-    console.log(events.map(function (evt) {
-        return getDistance(userLocation, evt);
-    }));
-};
