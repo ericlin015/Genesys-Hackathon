@@ -74,7 +74,7 @@ angular.module('myApp.services', ['ngCookies'])
                 "postalCode": "defaultPostalCode",
             }
 
-            var userId = null;
+            this.userId = null;
 
             this.setUserProfile = function(newUserProfile) {
                 userProfile = newUserProfile;
@@ -85,7 +85,10 @@ angular.module('myApp.services', ['ngCookies'])
             };
 
             this.getUserId = function() {
-                return userId;
+                if (!this.userId) {
+                    this.userId = $cookieStore.get('userID');
+                }
+                return this.userId;
             };
 
             this.userSignIn = function(profileJSON) {
@@ -98,7 +101,7 @@ angular.module('myApp.services', ['ngCookies'])
 
             this.updateNearest = function(maxNum, callback) {
                 $http.post('/api/getUser', {
-                    userId: userId
+                    userId: this.userId
                 }).success(function(data) {
                     $http.post('/api/getNearestEvents', {
                         lat: data.lat,
@@ -111,9 +114,9 @@ angular.module('myApp.services', ['ngCookies'])
             };
 
             this.loadUserMeetup = function(callback) {
-                var userId = $cookieStore.get('userID')
+                this.userId = $cookieStore.get('userID');
                 $http.post('/api/getSubscriptions', {
-                    userId: userId,
+                    userId: this.userId,
                 }).success(function(data) {
                     callback(data);
                 });
@@ -166,6 +169,6 @@ angular.module('myApp.services', ['ngCookies'])
         };
         return new EventService();
     }).
-factory('mySocket', function (socketFactory) {
-  return socketFactory();
+factory('mySocket', function(socketFactory) {
+    return socketFactory();
 });
