@@ -83,7 +83,7 @@ app.post('/api/sendStopTypingNotification', api.sendStopTypingNotification);
 app.post('/api/complete', api.complete);
 app.post('/api/getNearestEvents', api.getNearestEvents);
 app.post('/api/getSubscriptions', api.getSubscriptions);
-app.post('/api/getTranscript', api.getTranscript);
+// app.post('/api/getTranscript', api.getTranscript);
 
 /**
  * Start Server
@@ -116,8 +116,9 @@ var socket = io(server).on('connection', function (socket) {
       request.get({
         headers: headers,
         url: url + '/' + req.chatId + '/messages'
-      }, function (err, _res, body) {
-        socket.emit('update messages', JSON.stringify(body).messages); // broadcasting to all clients
+      }, function (_err, __res, _body) {
+        // to-do: client's socket.on and server's socket.broadcast.emit should use the chatId as the emitted string
+        socket.broadcast.emit(req.chatId, JSON.parse(_body).messages[0].text); // broadcasting to all clients
       });
     });
   });
