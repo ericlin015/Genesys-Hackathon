@@ -24,6 +24,7 @@ var app = module.exports = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+app.engine('html', require('ejs').renderFile);
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
   extended: true
